@@ -9,12 +9,12 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var config = require('config');
-var logger = require('libs/log.js')(module);
+var log = require('logger')(module);
 
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || config.get('port'));
+app.engine('ejs',require('ejs-locals'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon());
@@ -35,6 +35,5 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 
 http.createServer(app).listen(config.get('port'), function () {
-  logger.log('info', 'Express server listening on port ' + config.get('port'));
-  console.log('info','Express server listening on port ' + config.get('port'));
+  log.info('Express server listening on port ' + config.get('port'));  
 });
