@@ -9,7 +9,7 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var config = require('config');
-var logger = require('libs/log.js');
+var logger = require('libs/log.js')(module);
 
 var app = express();
 

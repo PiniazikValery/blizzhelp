@@ -1,7 +1,19 @@
-var logger = require('winston');
-var Loggly = require('winston-loggly').Loggly;
-var loggly_options = { subdomain: "mysubdomain", inputToken: "efake000-000d-000e-a000-xfakee000a00" }
-logger.add(Loggly, loggly_options);
-logger.add(winston.transports.File, { filename: "../logs/production.log" });
-logger.info('Chill Winston, the logs are being captured 3 ways- console, file, and Loggly');
-module.exports = logger;
+var winston = require('winston');
+var ENV = process.env.NODE_ENV;
+
+// can be much more flexible than that O_o
+function getLogger(module) {
+
+    var path = module.filename.split('\\').slice(-2).join('\\');
+    return  winston.createLogger({
+        transports: [
+            new winston.transports.Console({
+                colorize: true,
+                level: (ENV == 'development') ? 'debug' : 'error',
+                label: path
+            })
+        ]
+    });
+}
+
+module.exports = getLogger;
