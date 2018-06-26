@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "ejs": "*",
+    "ejs-locals": "^1.0.2",
     "express": "3.3.8",
     "nconf": "^0.10.0",
     "winston": "^3.0.0"
