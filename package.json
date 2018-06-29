@@ -1,14 +1,18 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
+  "name": "blizzhelp",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node ./bin/www"
   },
   "dependencies": {
-    "ejs": "*",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
     "ejs-locals": "^1.0.2",
-    "express": "3.3.8",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0",
     "nconf": "^0.10.0",
     "winston": "^3.0.0"
   }
