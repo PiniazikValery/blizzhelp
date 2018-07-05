@@ -1,0 +1,41 @@
+#blizzhelp_body {
+    background-color: #030e20;
+    background-image: url("/images/wallpapers/space_stars_blue.jpg"), url("/images/wallpapers/ice.jpg");
+    background-repeat: no-repeat;
+    background-position: center top, center bottom;
+    margin: 0px;
+    padding: 0px;
+}
+
+header#header {
+    width: 100%;
+    min-height: 50px;
+    position: relative;
+    z-index: 9000;
+}
+
+@media only screen and (min-width: 1070px) {
+    header#header {
+        min-height: initial;
+        height: 130px;
+    }
+}
+
+#main {
+    width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+    #main {
+        width: 768px;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (min-width: 1070px) {
+    #main {
+        width: 1070px;
+        margin: 0 auto;
+        position: relative;
+    }
+}
