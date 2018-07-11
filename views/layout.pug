@@ -2,10 +2,16 @@ html
     head
         title
             block title
-        link(rel="stylesheet", href="/stylesheets/layout/blizzhelp_layout.css")
+        link(rel="stylesheet", href="/stylesheets/layout/blizzhelp_layout.css")        
 body(id="blizzhelp_body")
     header(id="header")
-        block header
+        div(id="games")
+            div(id="game_wow")
+                a World of Warcraft
+            div(id="game_overwatch")
+                a Overwatch
+            div(id="game_hearthstone")
+                a Hearthstone                        
     div(id="main")
         h1
             block title
