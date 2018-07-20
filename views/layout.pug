@@ -2,16 +2,23 @@ html
     head
         title
             block title
-        link(rel="stylesheet", href="/stylesheets/layout/blizzhelp_layout.css")        
+        link(rel="stylesheet", href="/stylesheets/layout/blizzhelp_layout.css")     
+        link(rel="stylesheet", href="/stylesheets/layout/games_sprites.css")     
 body(id="blizzhelp_body")
     header(id="header")
         div(id="games")
-            div(id="game_wow")
-                a World of Warcraft
-            div(id="game_overwatch")
-                a Overwatch
-            div(id="game_hearthstone")
-                a Hearthstone                        
+            div(id="game_wow" class="game")   
+                a(href="#")  
+                    img(id="sprite_wow" class="sprite_game")
+                    span World of Warcraft                
+            div(id="game_overwatch" class="game")
+                a(href="#")
+                    img(id="sprite_overwatch" class="sprite_game")           
+                    span Overwatch
+            div(id="game_hearthstone" class="game")
+                a(href="#")
+                    img(id="sprite_hearthstone" class="sprite_game")           
+                    span Hearthstone                        
     div(id="main")
         h1
             block title

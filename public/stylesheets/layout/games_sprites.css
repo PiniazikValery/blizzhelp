@@ -1,0 +1,19 @@
+.sprite_game {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50px;
+    height: 50px;    
+}
+
+#sprite_wow{
+    content: url("/images/icons/wow.png");
+}
+
+#sprite_overwatch{
+    content: url("/images/icons/overwatch.png");
+}
+
+#sprite_hearthstone{
+    content: url("/images/icons/hearthstone.png");
+}

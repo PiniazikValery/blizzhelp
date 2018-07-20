@@ -42,10 +42,17 @@ header#header {
 
 #games {
     overflow: hidden;
-    background-color: #03234a;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(3, 35, 74, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-#games #game_wow {
+#games .game:hover {
+    filter: brightness(1.15);
+}
+
+#games .game {    
     float: right;
     display: block;
     color: #ffffff;
@@ -53,24 +60,16 @@ header#header {
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
+    border-right: solid 1px rgba(255, 255, 255, 0.15);
 }
 
-#games #game_overwatch {
-    float: right;
-    display: block;
-    color: #ffffff;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
+#games .game:last-child {         
+    border-left: solid 1px rgba(255, 255, 255, 0.15);
 }
 
-#games #game_hearthstone {
-    float: right;
-    display: block;
-    color: #ffffff;
-    text-align: center;
-    padding: 14px 16px;
+.game a{
     text-decoration: none;
-    font-size: 17px;
+    color: #9d9fa7;
+    font-size: .9375rem;    
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
