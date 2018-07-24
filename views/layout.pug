@@ -4,24 +4,32 @@ html
             block title
         link(rel="stylesheet", href="/stylesheets/layout/blizzhelp_layout.css")     
         link(rel="stylesheet", href="/stylesheets/layout/games_sprites.css")     
+        link(rel="stylesheet", href="/stylesheets/layout/auth_sprites.css")     
+        link(rel="stylesheet", href="/stylesheets/layout/dropdown.css")
 body(id="blizzhelp_body")
     header(id="header")
-        div(id="games")
-            div(id="game_wow" class="game")   
-                a(href="#")  
-                    img(id="sprite_wow" class="sprite_game")
-                    span World of Warcraft                
-            div(id="game_overwatch" class="game")
-                a(href="#")
-                    img(id="sprite_overwatch" class="sprite_game")           
-                    span Overwatch
-            div(id="game_hearthstone" class="game")
-                a(href="#")
-                    img(id="sprite_hearthstone" class="sprite_game")           
-                    span Hearthstone                        
+        div(id="header_nav")
+            div(id="auth")                               
+                div(id="log_in")
+                    a(href="#")
+                        img(id="sprite_log_in",class="sprite_auth")
+                        span Войти
+            div(id="games")
+                div(id="game_wow" class="game")   
+                    a(href="#")  
+                        img(id="sprite_wow" class="sprite_game")
+                        span World of Warcraft                
+                div(id="game_overwatch" class="game")
+                    a(href="#")
+                        img(id="sprite_overwatch" class="sprite_game")           
+                        span Overwatch
+                div(id="game_hearthstone" class="game")
+                    a(href="#")
+                        img(id="sprite_hearthstone" class="sprite_game")           
+                        span Hearthstone    
+        include partials/dropdowns/wow_dropdown.pug         
     div(id="main")
-        h1
-            block title
+        block title
         block body
     footer
         block footer

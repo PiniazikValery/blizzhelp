@@ -7,13 +7,13 @@
 }
 
 #sprite_wow{
-    content: url("/images/icons/wow.png");
+    content: url("/images/icons/games/wow.png");
 }
 
 #sprite_overwatch{
-    content: url("/images/icons/overwatch.png");
+    content: url("/images/icons/games/overwatch.png");
 }
 
 #sprite_hearthstone{
-    content: url("/images/icons/hearthstone.png");
+    content: url("/images/icons/games/hearthstone.png");
 }
