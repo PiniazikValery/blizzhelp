@@ -16,7 +16,7 @@ header#header {
 
 @media only screen and (min-width: 1070px) {
     header#header {
-        min-height: initial;        
+        min-height: initial;
     }
 }
 
@@ -25,7 +25,7 @@ header#header {
     width: 100%;
 }
 
-#games{
+#games {
     width: 1070px;
     margin: 0 auto;
 }
@@ -54,11 +54,11 @@ header#header {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#header_nav .game:hover{
+#header_nav .game:hover {
     filter: brightness(1.15);
 }
 
-#header_nav .game {    
+#header_nav .game {
     float: left;
     display: block;
     color: #ffffff;
@@ -70,7 +70,7 @@ header#header {
     border-right: solid 1px rgba(255, 255, 255, 0.15);
 }
 
-#header_nav #auth{
+#header_nav #auth {
     float: right;
     display: block;
     color: #ffffff;
@@ -81,35 +81,95 @@ header#header {
     font-size: 17px;
 }
 
-#header_nav #log_in:hover{
+#header_nav #log_in:hover {
     filter: brightness(1.15);
 }
 
-header{
+header {
     text-decoration: none;
     color: #9d9fa7;
-    font-size: 18;    
+    font-size: 18;
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
 
-#header_nav #auth a{
+#header_nav #auth a {
     text-decoration: none;
     color: #9d9fa7;
-    font-size: 16;    
+    font-size: 16;
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
 
-#header_nav .game:last-child {         
+/* #header_nav .game:last-child {         
+    border-left: solid 1px rgba(255, 255, 255, 0.15);
+} */
+
+#header_nav .game:first-child {
     border-left: solid 1px rgba(255, 255, 255, 0.15);
 }
 
-#header_nav .game:first-child {         
-    border-left: solid 1px rgba(255, 255, 255, 0.15);
-}
-
-.game a{
+.game a {
     text-decoration: none;
     color: #9d9fa7;
-    font-size: 16;    
+    font-size: 16;
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+span.dk {
+    padding-left: 40px;
+    color: #017e8f;
+}
+
+span.dh {
+    padding-left: 40px;
+    color: #8ec73d
+}
+
+span.druid {
+    padding-left: 40px;
+    color: #ab8588;
+}
+
+span.hunter {
+    padding-left: 40px;
+    color: #734720;
+}
+
+span.mage {
+    padding-left: 40px;
+    color: #c0182a;
+}
+
+span.monk {
+    padding-left: 40px;
+    color: #71c156;
+}
+
+span.paladin {
+    padding-left: 40px;
+    color: #efd766;
+}
+
+span.priest {
+    padding-left: 40px;
+    color: #84ccd4d9;
+}
+
+span.rogue {
+    padding-left: 40px;
+    color: #2c983c;
+}
+
+span.shaman {
+    padding-left: 40px;
+    color: #f9ca3d;
+}
+
+span.warlock {
+    padding-left: 40px;
+    color: #6d376e;
+}
+
+span.warrior {
+    padding-left: 40px;
+    color: #bdbec1;
 }
