@@ -16,7 +16,7 @@ body(id="blizzhelp_body")
                         span Войти
             div(id="games")
                 div(id="game_wow" class="game")   
-                    a(href="#")  
+                    a(href="/wow")  
                         img(id="sprite_wow" class="sprite_game")
                         span World of Warcraft                
                 div(id="game_overwatch" class="game")
@@ -27,7 +27,9 @@ body(id="blizzhelp_body")
                     a(href="#")
                         img(id="sprite_hearthstone" class="sprite_game")           
                         span Hearthstone    
-        include partials/dropdowns/wow_dropdown.pug         
+        case dropdownFor
+            when 'wow'
+                include partials/dropdowns/wow_dropdown.pug       
     div(id="main")
         block title
         block body

@@ -99,10 +99,6 @@ header {
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
 
-/* #header_nav .game:last-child {         
-    border-left: solid 1px rgba(255, 255, 255, 0.15);
-} */
-
 #header_nav .game:first-child {
     border-left: solid 1px rgba(255, 255, 255, 0.15);
 }
