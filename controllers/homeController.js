@@ -1,3 +1,3 @@
 exports.get_home = function(req, res) {
-    res.render('index');
+    res.render('index',{title:'Blizzhelp'});
 };

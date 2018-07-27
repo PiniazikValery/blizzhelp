@@ -1,0 +1,74 @@
+.sprite_game {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50px;
+    height: 50px;    
+}
+
+.sprite_wow_class{
+    position: absolute;
+    bottom: 7px;
+    width: 33px;
+    height: 33px;
+}
+
+.sprite_wow_class_dk{
+    content: url("/images/icons/wow_classes/DK.png");
+}
+
+.sprite_wow_class_dh{
+    content: url("/images/icons/wow_classes/DH.png");
+}
+
+.sprite_wow_class_druid{
+    content: url("/images/icons/wow_classes/Druid.png");
+}
+
+.sprite_wow_class_hunter{
+    content: url("/images/icons/wow_classes/Hunter.png");
+}
+
+.sprite_wow_class_mage{
+    content: url("/images/icons/wow_classes/Mage.png");
+}
+
+.sprite_wow_class_monk{
+    content: url("/images/icons/wow_classes/Monk.png");
+}
+
+.sprite_wow_class_paladin{
+    content: url("/images/icons/wow_classes/Paladin.png");
+}
+
+.sprite_wow_class_priest{
+    content: url("/images/icons/wow_classes/Priest.png");
+}
+
+.sprite_wow_class_rogue{
+    content: url("/images/icons/wow_classes/Rogue.png");
+}
+
+.sprite_wow_class_shaman{
+    content: url("/images/icons/wow_classes/Shaman.png");
+}
+
+.sprite_wow_class_warlock{
+    content: url("/images/icons/wow_classes/Warlock.png");
+}
+
+.sprite_wow_class_warrior{
+    content: url("/images/icons/wow_classes/Warrior.png");
+}
+
+#sprite_wow{
+    content: url("/images/icons/games/wow.png");
+}
+
+#sprite_overwatch{
+    content: url("/images/icons/games/overwatch.png");
+}
+
+#sprite_hearthstone{
+    content: url("/images/icons/games/hearthstone.png");
+}
