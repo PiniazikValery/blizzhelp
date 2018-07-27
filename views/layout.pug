@@ -5,7 +5,8 @@ html
         link(rel="stylesheet", href="/stylesheets/layout/blizzhelp_layout.css")     
         link(rel="stylesheet", href="/stylesheets/layout/games_sprites.css")     
         link(rel="stylesheet", href="/stylesheets/layout/auth_sprites.css")     
-        link(rel="stylesheet", href="/stylesheets/layout/dropdown.css")
+        link(rel="stylesheet", href="/stylesheets/layout/blizzhelp_layout_dropdown.css")
+        block stylesheets
 body(id="blizzhelp_body")
     header(id="header")
         div(id="header_nav")
@@ -31,7 +32,7 @@ body(id="blizzhelp_body")
             when 'wow'
                 include partials/dropdowns/wow_dropdown.pug       
     div(id="main")
-        block title
+        block title_main
         block body
     footer
         block footer

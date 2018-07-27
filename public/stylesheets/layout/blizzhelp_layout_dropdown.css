@@ -19,6 +19,7 @@ li {
 }
 
 /* li a, */
+
 .dropbtn {
     display: inline-block;
     color: white;
@@ -28,6 +29,7 @@ li {
 }
 
 /* li a:hover, */
+
 .dropdown:hover .dropbtn {
     background-color: #284967;
 }
@@ -49,15 +51,15 @@ li.dropdown {
     padding-left: 10px;
 }
 
-.dropdown-content#nav_mythic_section{
+.dropdown-content#nav_mythic_section {
     transform: translateX(-74px);
 }
 
-.dropdown-content#nav_quests_section{
+.dropdown-content#nav_quests_section {
     transform: translateX(-188px);
 }
 
-.dropdown-content#nav_events_section{
+.dropdown-content#nav_events_section {
     transform: translateX(-305px);
 }
 
@@ -84,38 +86,98 @@ li.dropdown {
     width: 9px;
 }
 
-.nav_content_block{
+.nav_content_block {
     display: inline-block;
-    vertical-align: top;    
-    width:30%;
+    vertical-align: top;
+    width: 30%;
 }
 
-.nav_content_block_whole_width{
-    width:100%;
+.nav_content_block_whole_width {
+    width: 100%;
 }
 
-.nav_content_block_whole_width .nav_content_block_entry{
+.nav_content_block_whole_width .nav_content_block_entry {
     width: 25%;
     display: inline-block;
 }
 
-.nav_content_block_title{    
+.nav_content_block_title {
     color: white;
     padding-top: 25px;
     padding-bottom: 5px;
 }
 
-.nav_content_block_entry{
+.nav_content_block_entry {
     font-size: 14px;
     padding-bottom: 4px;
     padding-top: 4px;
 }
 
-.nav_content_block_entry a{
+.nav_content_block_entry a {
     text-decoration: none;
     color: #78dcff;
 }
 
 .nav_content_block_wow_class .nav_content_block_title {
     position: relative;
+}
+
+span.dk {
+    padding-left: 40px;
+    color: #017e8f;
+}
+
+span.dh {
+    padding-left: 40px;
+    color: #8ec73d
+}
+
+span.druid {
+    padding-left: 40px;
+    color: #ab8588;
+}
+
+span.hunter {
+    padding-left: 40px;
+    color: #734720;
+}
+
+span.mage {
+    padding-left: 40px;
+    color: #c0182a;
+}
+
+span.monk {
+    padding-left: 40px;
+    color: #71c156;
+}
+
+span.paladin {
+    padding-left: 40px;
+    color: #efd766;
+}
+
+span.priest {
+    padding-left: 40px;
+    color: #84ccd4d9;
+}
+
+span.rogue {
+    padding-left: 40px;
+    color: #2c983c;
+}
+
+span.shaman {
+    padding-left: 40px;
+    color: #f9ca3d;
+}
+
+span.warlock {
+    padding-left: 40px;
+    color: #6d376e;
+}
+
+span.warrior {
+    padding-left: 40px;
+    color: #bdbec1;
 }

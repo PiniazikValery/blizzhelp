@@ -14,15 +14,19 @@ header#header {
     z-index: 9000;
 }
 
-@media only screen and (min-width: 1070px) {
+/* @media only screen and (min-width: 1070px) {
     header#header {
         min-height: initial;
     }
-}
+} */
 
 #main {
     background-color: #162c44;
-    width: 100%;
+    width: 1070px;
+    margin: 0 auto;
+    position: relative;
+    min-height: 800px;
+    margin-bottom: 250;
 }
 
 #games {
@@ -30,7 +34,7 @@ header#header {
     margin: 0 auto;
 }
 
-@media only screen and (min-width: 768px) {
+/* @media only screen and (min-width: 768px) {
     #main {
         width: 768px;
         margin: 0 auto;
@@ -42,8 +46,10 @@ header#header {
         width: 1070px;
         margin: 0 auto;
         position: relative;
+        min-height: 800px;
+        margin-bottom: 250;
     }
-}
+} */
 
 #header_nav {
     overflow: hidden;
@@ -108,64 +114,4 @@ header {
     color: #9d9fa7;
     font-size: 16;
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
-}
-
-span.dk {
-    padding-left: 40px;
-    color: #017e8f;
-}
-
-span.dh {
-    padding-left: 40px;
-    color: #8ec73d
-}
-
-span.druid {
-    padding-left: 40px;
-    color: #ab8588;
-}
-
-span.hunter {
-    padding-left: 40px;
-    color: #734720;
-}
-
-span.mage {
-    padding-left: 40px;
-    color: #c0182a;
-}
-
-span.monk {
-    padding-left: 40px;
-    color: #71c156;
-}
-
-span.paladin {
-    padding-left: 40px;
-    color: #efd766;
-}
-
-span.priest {
-    padding-left: 40px;
-    color: #84ccd4d9;
-}
-
-span.rogue {
-    padding-left: 40px;
-    color: #2c983c;
-}
-
-span.shaman {
-    padding-left: 40px;
-    color: #f9ca3d;
-}
-
-span.warlock {
-    padding-left: 40px;
-    color: #6d376e;
-}
-
-span.warrior {
-    padding-left: 40px;
-    color: #bdbec1;
 }
