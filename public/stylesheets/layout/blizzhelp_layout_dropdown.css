@@ -9,7 +9,7 @@ ul.list_of_dropdowns {
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-li {
+li.dropdown {
     float: left;
 }
 
@@ -111,11 +111,6 @@ li.dropdown {
     font-size: 14px;
     padding-bottom: 4px;
     padding-top: 4px;
-}
-
-.nav_content_block_entry a {
-    text-decoration: none;
-    color: #78dcff;
 }
 
 .nav_content_block_wow_class .nav_content_block_title {
