@@ -51,3 +51,27 @@
     margin-left: 10px;
     margin-right: 10px;
 }
+
+#main ul li.blood_dk{
+    color: #C41F3B !important;
+}
+
+#main ul li.vengeance_dh{
+    color:#a330c9 !important;
+}
+
+#main ul li.guardian_druid{
+    color:#FF7D0A !important;
+}
+
+#main ul li.brewmaster_monk{
+    color:#008467 !important;
+}
+
+#main ul li.protection_paladin{
+    color:#F58CBA !important;
+}
+
+#main ul li.protection_warrior{
+    color:#C79C6E !important;
+}
