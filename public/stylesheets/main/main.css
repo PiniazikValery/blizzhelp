@@ -1,31 +1,77 @@
-#main{
-    color: white;    
+#main {
+    color: white;
 }
 
-#main h1{
+#main h1 {
     margin: auto;
-    text-align: center;    
+    text-align: center;
     padding-bottom: 30px;
     padding-top: 20;
 }
 
-#main h2{
+#main h2 {
     padding-left: 20px;
+    margin-bottom: 20px;
 }
 
-#main p{
+#main h3 {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+#main h4 {
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+#main p {
     font-size: 20;
     padding-left: 20px;
+    padding-right: 20px;
     margin-top: 15px;
     margin-bottom: 15px;
     color: #cccccc;
 }
 
-#main ul{
+#main ul {
     font-size: 20;
     color: #cccccc;
     list-style-type: disc;
     margin-top: 10px;
     margin-bottom: 10px;
-    margin-left: 10px;    
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#main ol{
+    font-size: 20;
+    color: #cccccc;    
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#main ul li.blood_dk{
+    color: #C41F3B !important;
+}
+
+#main ul li.vengeance_dh{
+    color:#a330c9 !important;
+}
+
+#main ul li.guardian_druid{
+    color:#FF7D0A !important;
+}
+
+#main ul li.brewmaster_monk{
+    color:#008467 !important;
+}
+
+#main ul li.protection_paladin{
+    color:#F58CBA !important;
+}
+
+#main ul li.protection_warrior{
+    color:#C79C6E !important;
 }
