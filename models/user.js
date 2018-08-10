@@ -8,36 +8,37 @@ class User {
         this.user = mongoose.model('User', UserSchema);
     }
 
-    createUser() {
+    createUser() {                       
         let userData = {
             email: this.req.body.email,
             username: this.req.body.username,
-            password: this.req.body.password,
-            passwordConf: this.req.body.passwordConf,
+            password: this.req.body.password,            
             activated: false,
         }
         this.user.create(userData);
     }
 
-    authenticate(res, redirect, callback) {
+    authenticateUser(callback) {
         this.user.findOne({
-                email: this.req.body.logemail
+                email: this.req.body.email
             })
-            .exec((err, user) => {
+            .exec(function (err, user) {
                 if (err) {
-                    return callback(err);
-                } else if (!user) {
-                    let err = new Error('User not found.');
-                    err.status = 401;
                     return callback(err)
+                } else if (!user) {
+                    var err = new Error('User not found.');
+                    err.status = 401;
+                    return callback(err);
                 }
-                bcrypt.compare(this.req.body.logpassword, user.password, (err,result)=>{
-                    if(result === true){
-                        
+                bcrypt.compare(this.req.body.password, user.password, function (err, result) {
+                    if (result === true) {
+                        return callback(null, user);
+                    } else {
+                        return callback();
                     }
                 })
-            })
+            });
     }
 }
 
-module.exports = new User();
+module.exports = User;
