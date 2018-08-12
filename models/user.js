@@ -1,27 +1,35 @@
 var mongoose = require('mongoose');
 var UserSchema = require('../schemes/user_schema')
 var bcrypt = require('bcrypt');
+var SessionStore = require('./sessions/sessionStore');
 
 class User {
     constructor(req) {
-        this.req = req;
+        this.refReq = { req: req }
         this.user = mongoose.model('User', UserSchema);
     }
 
-    createUser() {                       
+    createUser(callback) {
         let userData = {
-            email: this.req.body.email,
-            username: this.req.body.username,
-            password: this.req.body.password,            
+            email: this.refReq.req.body.email,
+            username: this.refReq.req.body.username,
+            password: this.refReq.req.body.password,
             activated: false,
         }
-        this.user.create(userData);
+        this.user.create(userData,(err)=>{
+            callback(err);
+        });
+    }
+
+    logOutUser(callback) {
+        this.refReq.req.session.destroy((err)=>{
+            callback(err);
+        });
     }
 
     authenticateUser(callback) {
-        this.user.findOne({
-                email: this.req.body.email
-            })
+        let localReq = { req: this.refReq.req };
+        this.user.findOne({ email: localReq.req.body.email })
             .exec(function (err, user) {
                 if (err) {
                     return callback(err)
@@ -30,11 +38,12 @@ class User {
                     err.status = 401;
                     return callback(err);
                 }
-                bcrypt.compare(this.req.body.password, user.password, function (err, result) {
+                bcrypt.compare(localReq.req.body.password, user.password, function (err, result) {
                     if (result === true) {
-                        return callback(null, user);
+                        SessionStore.createSession(user, localReq.req);                        
+                        callback(null);
                     } else {
-                        return callback();
+                        return callback(err);
                     }
                 })
             });

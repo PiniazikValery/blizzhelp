@@ -12,7 +12,7 @@ var wowRouter = require('./routes/wow')
 
 var app = express();
 
-mongoose.connect('mongodb://localhost:27017/testForAuth', {
+mongoose.connect('mongodb://localhost:27017/blizzhelpDb', {
   useNewUrlParser: true
 });
 var db = mongoose.connection;
