@@ -8,7 +8,8 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
 var indexRouter = require('./routes');
-var wowRouter = require('./routes/wow')
+var wowRouter = require('./routes/wow');
+var auth_api = require('./api/routes/auth_api_route');
 
 var app = express();
 
@@ -46,6 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/wow', wowRouter);
+app.use('/api',auth_api);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
