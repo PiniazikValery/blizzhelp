@@ -9,10 +9,12 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\bin\\www",
+            "program": "${workspaceFolder}\\server\\bin\\www",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
             "env": {
                 "NODE_ENV": "development"
-            }
+            },
+            "sourceMaps": true
         }
     ]
 }
