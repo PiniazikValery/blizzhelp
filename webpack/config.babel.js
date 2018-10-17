@@ -3,20 +3,17 @@ import webpack from 'webpack';
 
 module.exports = {
   devtool: 'eval-source-map',
+  mode: 'production',
   entry: path.join(process.cwd(), 'client/src/index'),
   output: {
     filename: 'bundle.js',
-    path: path.join(process.cwd(), 'client', 'public', 'js', 'bundled'),
-    publicPath: '/js/bundled',
+    path: path.join(process.cwd(), 'client', 'public', 'bundled'),
+    publicPath: '/bundled',
   },
-  // optimization: {
-  //   splitChunks: {
-  //     chunks: 'all',
-  //   },
-  // },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
   ],
+  performance: { hints: false },
   module: {
     rules: [
       {

@@ -3,20 +3,19 @@ html
         title
             block title  
         link(rel="stylesheet", href="/stylesheets/common.css")
+        link(rel="stylesheet", href="/stylesheets/main/react-loading.css")
         link(rel="stylesheet", href="/stylesheets/layout/blizzhelp_layout.css")     
         link(rel="stylesheet", href="/stylesheets/layout/games_sprites.css")     
         link(rel="stylesheet", href="/stylesheets/layout/auth_sprites.css")     
-        link(rel="stylesheet", href="/stylesheets/layout/blizzhelp_layout_dropdown.css")      
+        link(rel="stylesheet", href="/stylesheets/layout/blizzhelp_layout_dropdown.css")    
+        link(rel="shortcut icon", href="#")  
         block stylesheets
         block scripts        
 body(id="blizzhelp_body")
     header(id="header")
         div(id="header_nav")
             div(id="auth")                               
-                div(id="log_in")
-                    a(href="#")
-                        img(id="sprite_log_in",class="sprite_auth")
-                        span Войти
+                div(id="accountNavBar" class="__react-root loading" data-name="Valery")
             div(id="games")
                 div(id="game_wow" class="game")   
                     a(href="/wow")  
@@ -38,4 +37,4 @@ body(id="blizzhelp_body")
         block body
     footer
         block footer
-        script(src="/js/bundled/bundle.js")
+        script(src="/bundled/bundle.js")
