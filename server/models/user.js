@@ -4,9 +4,29 @@ const UserSchema = require('../schemes/user_schema');
 const SessionStore = require('./sessions/sessionStore');
 
 class User {
-  constructor(req) {
-    this.refReq = { receivedReq: req };
+  constructor() {
+    this.refReq = undefined;
     this.user = mongoose.model('User', UserSchema);
+  }
+
+  initializeUser(req) {
+    this.refReq = {
+      receivedReq: req,
+    };
+  }
+
+  getUserById(userId, callback) {
+    return this.user.findById(userId, (err, foundUser) => {
+      if (err) {
+        return callback(err);
+      }
+      if (!foundUser) {
+        const userNotFoundErr = new Error('User not found.');
+        userNotFoundErr.status = 401;
+        return callback(userNotFoundErr);
+      }
+      return callback(null);
+    });
   }
 
   createUser(callback) {
