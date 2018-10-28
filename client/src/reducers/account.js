@@ -1,4 +1,4 @@
-import { AUTH_USER } from '../constants/action-types';
+import { AUTH_USER, LOG_OUT_USER } from '../constants/action-types';
 
 const initialState = {
   user_authenticated: false,
@@ -11,6 +11,11 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         user_authenticated: true,
         user_name: action.payload,
+      });
+    case LOG_OUT_USER:
+      return Object.assign({}, state, {
+        user_authenticated: false,
+        user_name: null,
       });
     default:
       return state;
