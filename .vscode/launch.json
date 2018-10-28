@@ -8,6 +8,7 @@
             "outputCapture": "std",
             "type": "node",
             "request": "launch",
+            "protocol": "inspector",
             "name": "Launch Program",
             "program": "${workspaceFolder}\\server\\bin\\www",
             "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
