@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Selectors from '../../selectors';
+import SignInComponent from './signIn_component';
 
 const mapStateToProps = state => ({
   isUserAuthenticated: Selectors.getUserIsAuthenticated(state),
@@ -55,9 +56,7 @@ class AccountNavBar extends Component {
               <img id="sprite_log_in" className="sprite_auth" alt="" />
               <span>Войти</span>
             </div>
-            <div>
-              {this.state.loginDropDownOpened ? 'opened' : 'closed'}
-            </div>
+            {this.state.loginDropDownOpened ? <SignInComponent /> : undefined}
           </div>
         );
     }

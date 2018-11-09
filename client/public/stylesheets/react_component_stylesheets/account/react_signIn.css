@@ -1,0 +1,44 @@
+#signInMenu{
+    padding-left:10px;  
+    padding-bottom:10px;
+    width:282px;
+    background-color: #1d364f;
+    position: absolute;
+    right:0px;
+    top:91px;
+  }
+  
+  #signInMenu #menuFields{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  #signInMenu #menuFields li{ 
+    padding-top:10px;
+  }
+  
+  #signInMenu h4{
+    margin-top: 5px;
+    padding-top:10px;
+    font-size: 20px;
+    color: white;
+    margin-bottom:0px; 
+  }
+    
+   input{
+    width:250px;
+    padding:7px; 
+    border-radius: 5px; 
+    background-color: rgb(250, 255, 189);        
+   }
+  
+  #signInMenu form button{
+    margin-top:10px;  
+    background-color: #3480af;
+    color: #ffffff;
+    width: 268px;
+    height:25px;
+    border-radius: 5px; 
+    border: none;
+  }
