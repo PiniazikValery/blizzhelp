@@ -70,7 +70,7 @@ exports.is_user_authenticated = (req, res) => {
       });
     });
   } else {
-    res.status(401).json({
+    res.status(200).json({
       user_authenticated: false,
       username: null,
     });

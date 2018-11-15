@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Selectors from '../../selectors';
 import SignInComponent from './signIn_component';
+import { AccountActions } from '../../actions';
 
 const mapStateToProps = state => ({
   isUserAuthenticated: Selectors.getUserIsAuthenticated(state),
   authenticatedUserName: Selectors.getNameOfAuthenticatedUser(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleUserLogout: bindActionCreators(AccountActions.logoutUser, dispatch),
+  handleUserLogin: bindActionCreators(AccountActions.authUser, dispatch),
 });
 
 class AccountNavBar extends Component {
@@ -19,6 +26,18 @@ class AccountNavBar extends Component {
 
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
+    fetch('http://localhost:3000/api/user/isauthenticated')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          if (Boolean(result.user_authenticated) === false) {
+            this.props.handleUserLogout();
+          } else {
+            this.props.handleUserLogin(result.username);
+          }
+        },
+      );
   }
 
   componentWillUnmount() {
@@ -63,4 +82,4 @@ class AccountNavBar extends Component {
   }
 }
 
-export default connect(mapStateToProps)(AccountNavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountNavBar);
