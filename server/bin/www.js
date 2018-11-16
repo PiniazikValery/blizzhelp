@@ -2,6 +2,8 @@ import Server from '../server';
 
 const server = new Server();
 
+server.setUpCookeParser();
+
 server.setUpMongo();
 
 server.setUpSocketIO();
@@ -15,8 +17,6 @@ server.setUpLogger();
 server.setUpJson();
 
 server.setUpEncodedUrl();
-
-server.setUpCookeParser();
 
 server.setUpRouters();
 

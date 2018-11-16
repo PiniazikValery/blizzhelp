@@ -53,6 +53,10 @@ class Server {
       store: new this.MongoStore({
         mongooseConnection: this.db,
       }),
+      cookie: {
+        'maxAge': 60 * 1000000,
+        'secure': false,
+      },
     }));
   }
 

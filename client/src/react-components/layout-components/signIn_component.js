@@ -20,16 +20,8 @@ class SignIn extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleEmailTyping(event) {
-    this.setState({
-      loginEmail: event.target.value,
-    });
-  }
-
-  handlePasswordTyping(event) {
-    this.setState({
-      loginPassword: event.target.value,
-    });
+  onUserAuth(username) {
+    this.props.handleUserLogin(username);
   }
 
   handleSubmit() {
@@ -43,13 +35,28 @@ class SignIn extends Component {
         email: this.state.loginEmail,
         password: this.state.loginPassword,
       }),
+    })
+      .then((response) => {
+        this.onUserAuth(response.username);
+      });
+  }
+
+  handleEmailTyping(event) {
+    this.setState({
+      loginEmail: event.target.value,
+    });
+  }
+
+  handlePasswordTyping(event) {
+    this.setState({
+      loginPassword: event.target.value,
     });
   }
 
   render() {
     return (
       <div id="signInMenu">
-        <form onSubmit={this.handleSubmit}>
+        <form>
           <h4>Sign In</h4>
           <ul id="menuFields">
             <li>
@@ -59,7 +66,7 @@ class SignIn extends Component {
               <input type="password" placeholder="Passwod" id="signInPassword" value={this.state.loginPassword} onChange={this.handlePasswordTyping} />
             </li>
           </ul>
-          <button type="submit">Sign In</button>
+          <button type="button" onClick={this.handleSubmit}>Sign In</button>
         </form>
       </div>
     );

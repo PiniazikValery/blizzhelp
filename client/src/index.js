@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+import 'isomorphic-fetch';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -18,6 +20,8 @@ const renderAppInElement = (el) => {
   }
 };
 
-document
-  .querySelectorAll('.__react-root')
-  .forEach(renderAppInElement);
+const reactApps = document.querySelectorAll('.__react-root');
+
+for (let i = 0; i < reactApps.length; i += 1) {
+  renderAppInElement(reactApps[i]);
+}
