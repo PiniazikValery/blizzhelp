@@ -1,27 +1,130 @@
-import Server from '../server';
+import createError from 'http-errors';
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import mongoose from 'mongoose';
+import session from 'express-session';
+import http from 'http';
+import config from '../config';
+import webpackDevServer from '../../webpack/dev-server';
+import indexRouter from '../routes';
+import wowRouter from '../routes/wow';
+import authApi from '../api/routes/auth_api_route';
 
-const server = new Server();
+const MongoStore = require('connect-mongo')(session);
+const debug = require('debug')('test-site:server');
 
-server.setUpCookeParser();
+const app = express();
 
-server.setUpMongo();
+mongoose.connect('mongodb://localhost:27017/blizzhelpDb', {
+  useNewUrlParser: true,
+});
+const db = mongoose.connection;
 
-server.setUpSocketIO();
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  // we're connected!
+});
 
-server.setUpViewEngine();
+app.use(cookieParser());
 
-server.setUpWebpackDevServer();
+app.use(session({
+  secret: 'Dfkthfgbyzpbr1',
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongooseConnection: db,
+  }),
+  cookie: { secure: false },
+}));
 
-server.setUpLogger();
+// view engine setup
+app.set('views', path.join(__dirname, '../../client/views'));
+app.set('view engine', 'pug');
+if (process.env.NODE_ENV !== 'production') {
+  webpackDevServer(app);
+}
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: false,
+}));
+app.use(express.static(path.join(__dirname, '../../client/public')));
 
-server.setUpJson();
+app.use('/', indexRouter);
+app.use('/wow', wowRouter);
+app.use('/api', authApi);
 
-server.setUpEncodedUrl();
+// catch 404 and forward to error handler
+app.use((req, res, next) => {
+  next(createError(404));
+});
 
-server.setUpRouters();
+// error handler
+app.use((err, req, res) => {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-server.setUpErrorHandler();
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
 
-server.setUpPort();
+function normalizePort(val) {
+  const _port = parseInt(val, 10);
 
-server.startListen();
+  if (isNaN(_port)) {
+    // named pipe
+    return val;
+  }
+
+  if (_port >= 0) {
+    // port number
+    return _port;
+  }
+
+  return false;
+}
+
+const port = normalizePort(process.env.PORT || config.get('port'));
+app.set('port', port);
+
+const server = http.createServer(app);
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  const bind = typeof port === 'string'
+    ? `Pipe ${port}`
+    : `Port ${port}`;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(`${bind} requires elevated privileges`);
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(`${bind} is already in use`);
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+function onListening() {
+  const addr = server.address();
+  const bind = typeof addr === 'string'
+    ? `pipe ${addr}`
+    : `port ${addr.port}`;
+  debug(`Listening on ${bind}`);
+}
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);

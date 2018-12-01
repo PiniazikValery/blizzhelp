@@ -8,7 +8,7 @@ import { store, persistor } from './store';
 
 const apps = {
   'helloWorldReactApp': () => import('./react-components/mainpage'),
-  'accountNavBar': () => import('./react-components/layout-components/account_navbar_component'),
+  'accountNavBar': () => import('./react-components/layout-components/account-components/account_navbar_component'),
 };
 
 const renderAppInElement = (el) => {

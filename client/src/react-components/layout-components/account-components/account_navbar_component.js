@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Selectors from '../../selectors';
+import Selectors from '../../../selectors';
 import SignInComponent from './signIn_component';
-import { AccountActions } from '../../actions';
+import { AccountActions } from '../../../actions';
 
 const mapStateToProps = state => ({
   isUserAuthenticated: Selectors.getUserIsAuthenticated(state),
@@ -26,7 +26,10 @@ class AccountNavBar extends Component {
 
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
-    fetch('http://localhost:3000/api/user/isauthenticated')
+    fetch('http://localhost:3000/api/user/isauthenticated', {
+      method: 'GET',
+      credentials: 'include',
+    })
       .then(res => res.json())
       .then(
         (result) => {
@@ -72,7 +75,7 @@ class AccountNavBar extends Component {
         return (
           <div ref={this.setWrapperRef}>
             <div role="button" tabIndex="0" id="log_in" onClick={this.handleLogInClick} onKeyDown={this.handleLogInClick}>
-              <img id="sprite_log_in" className="sprite_auth" alt="" />
+              <img src="/images/icons/auth/log_in.png" className="sprite_auth" alt="" />
               <span>Войти</span>
             </div>
             {this.state.loginDropDownOpened ? <SignInComponent /> : undefined}

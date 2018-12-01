@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { AccountActions } from '../../actions';
-import '../../../public/stylesheets/react_component_stylesheets/account/react_signIn.css';
+import { AccountActions } from '../../../actions';
+import '../../../../public/stylesheets/react_component_stylesheets/account/react_signIn.css';
 
 const mapDispatchToProps = dispatch => ({
   handleUserLogin: bindActionCreators(AccountActions.authUser, dispatch),
@@ -27,6 +27,7 @@ class SignIn extends Component {
   handleSubmit() {
     fetch('http://localhost:3000/api/user/login', {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

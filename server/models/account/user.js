@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const UserSchema = require('../schemes/user_schema');
-const SessionStore = require('./sessions/sessionStore');
+const UserSchema = require('../../schemes/account/user_schema');
+const SessionStore = require('../sessions/sessionStore');
 
 class User {
   constructor() {
