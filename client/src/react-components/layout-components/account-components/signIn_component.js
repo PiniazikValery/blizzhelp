@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { AccountActions } from '../../../actions';
 import '../../../../public/stylesheets/react_component_stylesheets/account/react_signIn.css';
+import '../../../../public/stylesheets/react_component_stylesheets/account/text_with_line.css';
 
 const mapDispatchToProps = dispatch => ({
   handleUserLogin: bindActionCreators(AccountActions.authUser, dispatch),
@@ -57,6 +58,7 @@ class SignIn extends Component {
   render() {
     return (
       <div id="signInMenu">
+        <p className="log_in_arrow">&#9650;</p>
         <form>
           <h4>Sign In</h4>
           <ul id="menuFields">
@@ -68,6 +70,10 @@ class SignIn extends Component {
             </li>
           </ul>
           <button type="button" onClick={this.handleSubmit}>Sign In</button>
+          <div className="strike">
+            <span>or</span>
+          </div>
+          <button className="register" type="button">Register</button>
         </form>
       </div>
     );

@@ -33,7 +33,6 @@ class AccountNavBar extends Component {
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(result);
           if (Boolean(result.user_authenticated) === false) {
             this.props.handleUserLogout();
           } else {
