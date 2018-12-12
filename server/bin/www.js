@@ -35,6 +35,7 @@ app.use(session({
   saveUninitialized: false,
   store: new MongoStore({
     mongooseConnection: db,
+    ttl: config.get('ttl_days') * 24 * 60 * 60,
   }),
   cookie: { secure: false },
 }));
