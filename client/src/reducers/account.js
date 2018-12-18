@@ -3,6 +3,7 @@ import { AUTH_USER, LOG_OUT_USER } from '../constants/action-types';
 const initialState = {
   user_authenticated: false,
   user_name: null,
+  expiration_time: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,6 +17,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         user_authenticated: false,
         user_name: null,
+        expiration_time: null,
       });
     default:
       return state;

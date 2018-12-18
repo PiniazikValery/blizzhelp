@@ -29,6 +29,22 @@ class User {
     });
   }
 
+  getUserByEmail(userEmail, callback) {
+    return this.user.findOne({
+      email: userEmail,
+    }, (err, foundUser) => {
+      if (err) {
+        return callback(err);
+      }
+      if (!foundUser) {
+        const userNotFoundErr = new Error('User not found.');
+        userNotFoundErr.status = 401;
+        return callback(userNotFoundErr);
+      }
+      return callback(foundUser);
+    });
+  }
+
   createUser(callback) {
     const userData = {
       email: this.refReq.receivedReq.body.email,

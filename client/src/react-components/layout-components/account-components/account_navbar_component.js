@@ -8,6 +8,7 @@ import { AccountActions } from '../../../actions';
 const mapStateToProps = state => ({
   isUserAuthenticated: Selectors.getUserIsAuthenticated(state),
   authenticatedUserName: Selectors.getNameOfAuthenticatedUser(state),
+  expirationTime: Selectors.getSessionExpirationTime(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -26,24 +27,17 @@ class AccountNavBar extends Component {
 
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
-    fetch('http://localhost:3000/api/user/isauthenticated', {
-      method: 'GET',
-      credentials: 'include',
-    })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          if (Boolean(result.user_authenticated) === false) {
-            this.props.handleUserLogout();
-          } else {
-            this.props.handleUserLogin(result.username);
-          }
-        },
-      );
+    if (this.props.expirationTime < new Date().getTime()) {
+      this.onUserLogOut();
+    }
   }
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  onUserLogOut() {
+    this.props.handleUserLogout();
   }
 
   setWrapperRef(node) {

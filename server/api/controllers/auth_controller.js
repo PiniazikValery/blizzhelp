@@ -1,3 +1,4 @@
+const config = require('../../config');
 const User = require('../../models/account/user');
 
 const user = new User();
@@ -23,9 +24,12 @@ exports.auth_user = (req, res) => {
     if (err) {
       res.status(500).json({ error: err.message });
     } else {
-      res.status(200).json({
-        message: `User with email ${req.body.email} authenticated`,
-        username: req.body.username,
+      user.getUserByEmail(req.body.email, (foundUser) => {
+        res.status(200).json({
+          message: `User with email ${req.body.email} authenticated`,
+          username: foundUser.username,
+          expiration_time: config.get('ttl_days') * 24 * 60 * 60 * 1000,
+        });
       });
     }
   });
@@ -39,7 +43,7 @@ exports.logout_user = (req, res) => {
         res.status(500).json({ error: err.message });
       } else {
         user.getUserById(cashedUserId, (errMessage) => {
-          if (err) {
+          if (errMessage) {
             res.status(500).json({ error: errMessage.message });
           }
         }).then((foundUser) => {

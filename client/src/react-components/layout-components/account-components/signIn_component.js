@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { AccountActions } from '../../../actions';
+import { AccountActions, SessionActions } from '../../../actions';
 import '../../../../public/stylesheets/react_component_stylesheets/account/react_signIn.css';
 import '../../../../public/stylesheets/react_component_stylesheets/account/text_with_line.css';
 
 const mapDispatchToProps = dispatch => ({
   handleUserLogin: bindActionCreators(AccountActions.authUser, dispatch),
+  handleUpdateSessionExpirationTime: bindActionCreators(SessionActions.setSessionExpirationTime, dispatch),
 });
 
 class SignIn extends Component {
@@ -25,6 +26,10 @@ class SignIn extends Component {
     this.props.handleUserLogin(username);
   }
 
+  onUpdateSessionExpirationTime(expirationTime) {
+    this.props.handleUpdateSessionExpirationTime(expirationTime);
+  }
+
   handleSubmit() {
     fetch('http://localhost:3000/api/user/login', {
       method: 'POST',
@@ -38,8 +43,10 @@ class SignIn extends Component {
         password: this.state.loginPassword,
       }),
     })
-      .then((response) => {
-        this.onUserAuth(response.username);
+      .then(res => res.json())
+      .then((result) => {
+        this.onUserAuth(result.username);
+        this.onUpdateSessionExpirationTime(result.expiration_time);
       });
   }
 
