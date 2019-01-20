@@ -78,9 +78,13 @@ class User {
         return bcrypt.compare(localReq.req.body.password, user.password, (compareErr, result) => {
           if (result === true) {
             SessionStore.createSession(user, localReq.req);
-            return callback(null);
           }
-          return callback(compareErr);
+          if (result === false) {
+            const passwordDosentMatchErr = new Error('Wrong password.');
+            passwordDosentMatchErr.status = 500;
+            return callback(passwordDosentMatchErr);
+          }
+          return callback(null);
         });
       });
   }

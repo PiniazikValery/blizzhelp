@@ -31,7 +31,7 @@ class SignIn extends Component {
   }
 
   handleSubmit() {
-    fetch('http://localhost:3000/api/user/login', {
+    fetch('/api/user/login', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -80,7 +80,7 @@ class SignIn extends Component {
           <div className="strike">
             <span>or</span>
           </div>
-          <button className="register" type="button">Register</button>
+          <button onClick={() => { window.location.href = '/auth/registration'; }} className="register" type="button">Register</button>
         </form>
       </div>
     );

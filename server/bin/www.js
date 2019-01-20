@@ -10,6 +10,7 @@ import config from '../config';
 import webpackDevServer from '../../webpack/dev-server';
 import indexRouter from '../routes';
 import wowRouter from '../routes/wow';
+import authRouter from '../routes/auth';
 import authApi from '../api/routes/auth_api_route';
 
 const MongoStore = require('connect-mongo')(session);
@@ -17,7 +18,7 @@ const debug = require('debug')('test-site:server');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/blizzhelpDb', {
+mongoose.connect('mongodb://pinval:Dfkthfgbyzpbr1@cluster0-shard-00-00-j1nom.mongodb.net:27017,cluster0-shard-00-01-j1nom.mongodb.net:27017,cluster0-shard-00-02-j1nom.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true', {
   useNewUrlParser: true,
 });
 const db = mongoose.connection;
@@ -56,6 +57,7 @@ app.use(express.static(path.join(__dirname, '../../client/public')));
 app.use('/', indexRouter);
 app.use('/wow', wowRouter);
 app.use('/api', authApi);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
