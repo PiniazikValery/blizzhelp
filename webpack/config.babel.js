@@ -12,6 +12,9 @@ module.exports = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.ProvidePlugin({
+      Promise: 'es6-promise-promise', // works as expected
+    }),
   ],
   performance: { hints: false },
   module: {

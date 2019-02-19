@@ -18,10 +18,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  activated: {
-    type: Boolean,
-    required: true,
-  },
 });
 
 UserSchema.pre('save', function hashPassword(next) {

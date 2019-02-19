@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+import 'isomorphic-fetch';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -6,7 +8,9 @@ import { store, persistor } from './store';
 
 const apps = {
   'helloWorldReactApp': () => import('./react-components/mainpage'),
-  'accountNavBar': () => import('./react-components/layout-components/account_navbar_component'),
+  'accountNavBar': () => import('./react-components/layout-components/account-components/account_navbar_component'),
+  'registrationForm': () => import('./react-components/registration-components/registration_component'),
+  'mainNotificator': () => import('./react-components/layout-components/notification-components/notifications-component'),
 };
 
 const renderAppInElement = (el) => {
@@ -18,6 +22,8 @@ const renderAppInElement = (el) => {
   }
 };
 
-document
-  .querySelectorAll('.__react-root')
-  .forEach(renderAppInElement);
+const reactApps = document.querySelectorAll('.__react-root');
+
+for (let i = 0; i < reactApps.length; i += 1) {
+  renderAppInElement(reactApps[i]);
+}

@@ -1,0 +1,62 @@
+#signInMenu{
+    border: 1px solid #ebebeb;
+    padding-left:10px; 
+    padding-right:10px; 
+    padding-bottom:10px;
+    width:282px;
+    background-color: #1d364f;
+    position: absolute;
+    right:1px;
+    top:91px;
+  }
+
+  #signInMenu .log_in_arrow{
+    position: absolute;
+    margin: 0px;
+    top: -16px;
+    right: 65px;
+  }
+  
+  #signInMenu #menuFields{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  #signInMenu #menuFields li{ 
+    padding-top:10px;
+  }
+  
+  #signInMenu h4{
+    margin-top: 5px;
+    padding-top:10px;
+    font-size: 20px;
+    color: white;
+    margin-bottom:0px; 
+  }
+    
+   input{
+    width:250px;
+    padding:7px; 
+    border-radius: 5px; 
+    background-color: rgb(250, 255, 189);        
+   }
+
+   #signInMenu form{
+    margin-bottom:0px;  
+  }
+  
+  #signInMenu form button{
+    margin-top:10px;  
+    margin-bottom:10px;  
+    background-color: #3480af;
+    color: #ffffff;
+    width: 268px;
+    height:25px;
+    border-radius: 5px; 
+    border: none;
+  }
+
+  #signInMenu form button.register{    
+    background-color: #ef9420;    
+  }

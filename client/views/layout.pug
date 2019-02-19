@@ -11,30 +11,31 @@ html
         link(rel="shortcut icon", href="#")  
         block stylesheets
         block scripts        
-body(id="blizzhelp_body")
+body(id="blizzhelp_body")    
     header(id="header")
         div(id="header_nav")
             div(id="auth")                               
-                div(id="accountNavBar" class="__react-root loading" data-name="Valery")
+                div(id="accountNavBar" class="__react-root loading")
             div(id="games")
                 div(id="game_wow" class="game")   
                     a(href="/wow")  
-                        img(id="sprite_wow" class="sprite_game")
+                        img(src="/images/icons/games/wow.png" class="sprite_game")
                         span World of Warcraft                
                 div(id="game_overwatch" class="game")
                     a(href="#")
-                        img(id="sprite_overwatch" class="sprite_game")           
+                        img(src="/images/icons/games/overwatch.png" class="sprite_game")           
                         span Overwatch
                 div(id="game_hearthstone" class="game")
                     a(href="#")
-                        img(id="sprite_hearthstone" class="sprite_game")           
+                        img(src="/images/icons/games/hearthstone.png" class="sprite_game")           
                         span Hearthstone    
         case dropdownFor
             when 'wow'
                 include partials/dropdowns/wow_dropdown.pug       
     div(id="main")
+        div(id="mainNotificator" class="__react-root")
         block title_main
-        block body
+        block body        
     footer
         block footer
         script(src="/bundled/bundle.js")

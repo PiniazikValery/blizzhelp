@@ -7,7 +7,7 @@
     padding: 0px;
 }
 
-header#header {
+header#header {    
     width: 100%;
     min-height: 50px;
     position: relative;
@@ -52,6 +52,7 @@ header#header {
 } */
 
 #header_nav {
+    height:70px;
     overflow: hidden;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -114,4 +115,10 @@ header {
     color: #9d9fa7;
     font-size: 16;
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+#log_in {
+    cursor: pointer;
+    outline: 0;
+    border: none;
 }
