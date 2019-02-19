@@ -6,6 +6,10 @@
     position: absolute;
   }
 
+  .wrongEntered{
+    border-color: red;
+  }
+
   #registrationMenu .log_in_arrow{
     position: absolute;
     margin: 0px;
