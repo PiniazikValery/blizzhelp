@@ -9,6 +9,8 @@ import { store, persistor } from './store';
 const apps = {
   'helloWorldReactApp': () => import('./react-components/mainpage'),
   'accountNavBar': () => import('./react-components/layout-components/account-components/account_navbar_component'),
+  'registrationForm': () => import('./react-components/registration-components/registration_component'),
+  'mainNotificator': () => import('./react-components/layout-components/notification-components/notifications-component'),
 };
 
 const renderAppInElement = (el) => {

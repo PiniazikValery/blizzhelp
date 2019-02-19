@@ -1,0 +1,69 @@
+#registrationMenu{    
+    padding-left:10px; 
+    padding-right:10px; 
+    padding-bottom:10px;
+    width: 100%;
+    position: absolute;
+  }
+
+  #registrationMenu .log_in_arrow{
+    position: absolute;
+    margin: 0px;
+    top: -16px;
+    right: 65px;
+  }
+  
+  #registrationMenu #menuFields{    
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  #registrationMenu #menuFields li{ 
+    padding-top:10px;
+  }
+  
+  #registrationMenu h4{
+    margin-top: 5px;
+    padding-top:10px;
+    font-size: 20px;
+    color: white;
+    margin-bottom:0px; 
+  }
+    
+  .longField{
+    width:268px;
+    padding:7px; 
+    border-radius: 5px; 
+    background-color: rgb(250, 255, 189);        
+   }
+
+   .shortField{
+    width:134px;
+    padding:7px; 
+    border-radius: 5px; 
+    background-color: rgb(250, 255, 189);        
+   }
+
+   #registrationMenu form{
+    margin-bottom:0px;  
+  }
+
+  #SubmitButton{
+    margin-top:10px;  
+    margin-bottom:10px;  
+    background-color: #3480af;
+    color: #ffffff;
+    width: 268px;
+    height:25px;
+    border-radius: 5px; 
+    border: none;
+  }
+  
+  #GenerateCodeButton{
+    background-color: #7B68EE;
+    color: #ffffff;
+    width: 134px;
+    padding: 7px;
+    border-radius: 100px;    
+    border: none;
+  }  

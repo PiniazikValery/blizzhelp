@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { AccountActions, SessionActions } from '../../../actions';
+import handleErrors from '../../../../middlewares/error_handler_middleware';
+import notificators from '../notification-components/notificators';
 import '../../../../public/stylesheets/react_component_stylesheets/account/react_signIn.css';
 import '../../../../public/stylesheets/react_component_stylesheets/account/text_with_line.css';
 
@@ -43,10 +45,17 @@ class SignIn extends Component {
         password: this.state.loginPassword,
       }),
     })
+      .then(handleErrors)
       .then(res => res.json())
       .then((result) => {
         this.onUserAuth(result.username);
         this.onUpdateSessionExpirationTime(result.expiration_time);
+        notificators.mainNotificator.showSuccess(`Welcome back ${result.username}`);
+      })
+      .catch((error) => {
+        if (error.message === '500') {
+          notificators.mainNotificator.showError('Wrong email or password enterd');
+        }
       });
   }
 
@@ -73,7 +82,7 @@ class SignIn extends Component {
               <input placeholder="Email" id="signInEmail" value={this.state.loginEmail} onChange={this.handleEmailTyping} />
             </li>
             <li>
-              <input type="password" placeholder="Passwod" id="signInPassword" value={this.state.loginPassword} onChange={this.handlePasswordTyping} />
+              <input type="password" placeholder="Password" id="signInPassword" value={this.state.loginPassword} onChange={this.handlePasswordTyping} />
             </li>
           </ul>
           <button type="button" onClick={this.handleSubmit}>Sign In</button>

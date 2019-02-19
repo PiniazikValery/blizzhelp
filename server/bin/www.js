@@ -18,7 +18,7 @@ const debug = require('debug')('test-site:server');
 
 const app = express();
 
-mongoose.connect('mongodb://pinval:Dfkthfgbyzpbr1@cluster0-shard-00-00-j1nom.mongodb.net:27017,cluster0-shard-00-01-j1nom.mongodb.net:27017,cluster0-shard-00-02-j1nom.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true', {
+mongoose.connect('mongodb://Pinval:12345@cluster0-shard-00-00-9vcbv.mongodb.net:27017,cluster0-shard-00-01-9vcbv.mongodb.net:27017,cluster0-shard-00-02-9vcbv.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true', {
   useNewUrlParser: true,
 });
 const db = mongoose.connection;
