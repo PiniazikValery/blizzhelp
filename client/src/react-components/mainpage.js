@@ -11,9 +11,7 @@ class MyComponent extends Component {
   render() {
     return (
       <div>
-        Hello
         {this.props.isUserAuthenticated.toString()}
-        !!
         {new Date().toLocaleTimeString()}
       </div>
     );

@@ -11,6 +11,7 @@ const apps = {
   'accountNavBar': () => import('./react-components/layout-components/account-components/account_navbar_component'),
   'registrationForm': () => import('./react-components/registration-components/registration_component'),
   'mainNotificator': () => import('./react-components/layout-components/notification-components/notifications-component'),
+  'unauthorizedHandler': () => import('./react-components/error-handler-components/unauthorized_handler_component'),
 };
 
 const renderAppInElement = (el) => {
