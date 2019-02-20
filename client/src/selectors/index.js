@@ -8,4 +8,7 @@ export default {
   getSessionExpirationTime(state) {
     return state.session.expiration_time;
   },
+  getRoleOfAuthenticatedUser(state) {
+    return state.account.user_role;
+  },
 };

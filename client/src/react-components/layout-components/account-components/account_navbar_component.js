@@ -13,7 +13,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleUserLogout: bindActionCreators(AccountActions.logoutUser, dispatch),
-  handleUserLogin: bindActionCreators(AccountActions.authUser, dispatch),
 });
 
 class AccountNavBar extends Component {

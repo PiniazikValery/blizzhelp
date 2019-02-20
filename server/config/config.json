@@ -1,5 +1,9 @@
 {
     "port": 3000,
     "site-email": "blizzhelp@gmail.com",
-    "ttl_days": 14
+    "ttl_days": 14,
+    "superAdminEmail": "arclonerholdon@gmail.com",
+    "superAdminUserName": "Arcloner",
+    "superAdminPassword": "Dfkthfgbyzpbr1",
+    "connectionString": "mongodb://Pinval:12345@cluster0-shard-00-00-9vcbv.mongodb.net:27017,cluster0-shard-00-01-9vcbv.mongodb.net:27017,cluster0-shard-00-02-9vcbv.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true"
 }

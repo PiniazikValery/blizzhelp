@@ -18,6 +18,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  user_role: {
+    type: String,
+    default: 'user',
+  },
 });
 
 UserSchema.pre('save', function hashPassword(next) {

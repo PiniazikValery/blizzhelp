@@ -15,6 +15,14 @@ class User {
     };
   }
 
+  getCountOfSuperAdmins(callback) {
+    this.user.find().estimatedDocumentCount({
+      user_role: 'superAdmin',
+    }, (err, count) => {
+      callback(err, count);
+    });
+  }
+
   getUserById(userId, callback) {
     return this.user.findById(userId, (err, foundUser) => {
       if (err) {
@@ -50,7 +58,19 @@ class User {
       email: this.refReq.receivedReq.body.email,
       username: this.refReq.receivedReq.body.username,
       password: this.refReq.receivedReq.body.password,
-      activated: false,
+      user_role: 'user',
+    };
+    this.user.create(userData, (err) => {
+      callback(err);
+    });
+  }
+
+  createSuperAdmin(userEmail, userName, userPassword, callback) {
+    const userData = {
+      email: userEmail,
+      username: userName,
+      password: userPassword,
+      user_role: 'superAdmin',
     };
     this.user.create(userData, (err) => {
       callback(err);
