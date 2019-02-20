@@ -72,6 +72,7 @@ exports.auth_user = (req, res) => {
           message: `User with email ${req.body.email} authenticated`,
           username: foundUser.username,
           expiration_time: config.get('ttl_days') * 24 * 60 * 60 * 1000,
+          user_role: foundUser.user_role,
         });
       });
     }
@@ -114,12 +115,14 @@ exports.is_user_authenticated = (req, res) => {
       res.status(200).json({
         user_authenticated: true,
         username: foundUser.username,
+        user_role: foundUser.user_role,
       });
     });
   } else {
     res.status(200).json({
       user_authenticated: false,
       username: null,
+      user_role: null,
     });
   }
 };

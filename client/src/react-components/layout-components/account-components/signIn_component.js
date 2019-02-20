@@ -48,7 +48,10 @@ class SignIn extends Component {
       .then(handleErrors)
       .then(res => res.json())
       .then((result) => {
-        this.onUserAuth(result.username);
+        this.onUserAuth({
+          username: result.username,
+          user_role: result.user_role,
+        });
         this.onUpdateSessionExpirationTime(result.expiration_time);
         notificators.mainNotificator.showSuccess(`Welcome back ${result.username}`);
       })
