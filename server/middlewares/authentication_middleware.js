@@ -1,3 +1,7 @@
+const User = require('../models/account/user');
+
+const user = new User();
+
 exports.requiresLogin = (req, res, next) => {
   if (req.session && req.session.userId) {
     next();
@@ -14,5 +18,23 @@ exports.apiRequiresLogin = (req, res, next) => {
       user_authenticated: false,
       username: null,
     });
+  }
+};
+
+exports.requiresToBeAdmin = (req, res, next) => {
+  if (req.session && req.session.userId) {
+    user.getUserById(req.session.userId, (err) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+      }
+    }).then((foundUser) => {
+      if (foundUser.user_role.toLowerCase().includes('admin')) {
+        next();
+      } else {
+        res.render('errors/access_denied');
+      }
+    });
+  } else {
+    res.render('errors/unauthorized_error');
   }
 };

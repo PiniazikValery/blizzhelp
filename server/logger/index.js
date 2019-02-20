@@ -1,18 +1,12 @@
 const winston = require('winston');
 
-const ENV = process.env.NODE_ENV;
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: { service: 'user-service' },
+  transports: [
+    new winston.transports.Console({ format: winston.format.simple() }),
+  ],
+});
 
-function getLogger(module) {
-  const path = module.filename.split('\\').slice(-2).join('\\');
-  return winston.createLogger({
-    transports: [
-      new winston.transports.Console({
-        colorize: true,
-        level: (ENV === 'development') ? 'debug' : 'error',
-        label: path,
-      }),
-    ],
-  });
-}
-
-module.exports = getLogger;
+module.exports = logger;
