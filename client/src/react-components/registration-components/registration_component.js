@@ -30,6 +30,7 @@ class Registration extends Component {
     this.removeAllWarnings = this.removeAllWarnings.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   onChange(response) {
@@ -90,14 +91,23 @@ class Registration extends Component {
         .then(res => res.json())
         .then((result) => {
           notificators.mainNotificator.showSuccess(result.message);
+          this.setState({
+            wrong_email: false,
+          });
         })
         .catch((error) => {
           if (error.message === '501') {
             notificators.mainNotificator.showError('Verification code already generated for this email, please wait 1 hour to get new');
+            this.setState({
+              wrong_email: true,
+            });
           }
         });
     } else {
       notificators.mainNotificator.showWarning('Invalid email');
+      this.setState({
+        wrong_email: true,
+      });
     }
   }
 
@@ -182,6 +192,12 @@ class Registration extends Component {
     });
   }
 
+  handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      this.onSubmit();
+    }
+  }
+
   render() {
     return (
       <div id="registrationMenu">
@@ -195,23 +211,23 @@ class Registration extends Component {
           <h4>Registration from</h4>
           <ul id="menuFields">
             <li>
-              <input className={`longField ${this.state.wrong_email ? 'wrongEntered' : ''}`} placeholder="Email" id="registrationEmail" value={this.state.email} onChange={this.handleEmailTyping} />
+              <input onKeyPress={this.handleKeyPress} className={`longField ${this.state.wrong_email ? 'wrongEntered' : ''}`} placeholder="Email" id="registrationEmail" value={this.state.email} onChange={this.handleEmailTyping} />
             </li>
             <li>
-              <input className={`longField ${this.state.wrong_username ? 'wrongEntered' : ''}`} placeholder="Username" id="registrationUsername" value={this.state.username} onChange={this.handleUsernameTyping} />
+              <input onKeyPress={this.handleKeyPress} className={`longField ${this.state.wrong_username ? 'wrongEntered' : ''}`} placeholder="Username" id="registrationUsername" value={this.state.username} onChange={this.handleUsernameTyping} />
             </li>
             <li>
-              <input className={`longField ${this.state.wrong_password ? 'wrongEntered' : ''}`} type="password" placeholder="Password" id="registrationPassword" value={this.state.password} onChange={this.handlePasswordTyping} />
+              <input onKeyPress={this.handleKeyPress} className={`longField ${this.state.wrong_password ? 'wrongEntered' : ''}`} type="password" placeholder="Password" id="registrationPassword" value={this.state.password} onChange={this.handlePasswordTyping} />
             </li>
             <li>
-              <input className={`longField ${this.state.wrong_rewrited_password ? 'wrongEntered' : ''}`} type="password" placeholder="Re-enter password" id="registrationRewritedPassword" value={this.state.rewrited_password} onChange={this.handlePasswordRewriting} />
+              <input onKeyPress={this.handleKeyPress} className={`longField ${this.state.wrong_rewrited_password ? 'wrongEntered' : ''}`} type="password" placeholder="Re-enter password" id="registrationRewritedPassword" value={this.state.rewrited_password} onChange={this.handlePasswordRewriting} />
             </li>
             <li>
-              <button id="GenerateCodeButton" type="button" onClick={this.onClickGenerateCode}>Send code</button>
-              <input className={`shortField ${this.state.wrong_auth_code ? 'wrongEntered' : ''}`} placeholder="Code" id="registrationAuthCode" value={this.state.auth_code} onChange={this.handleAuthCodeTyping} />
+              <button className="clickable" id="GenerateCodeButton" type="button" onClick={this.onClickGenerateCode}>Send code</button>
+              <input onKeyPress={this.handleKeyPress} className={`shortField ${this.state.wrong_auth_code ? 'wrongEntered' : ''}`} placeholder="Code" id="registrationAuthCode" value={this.state.auth_code} onChange={this.handleAuthCodeTyping} />
             </li>
           </ul>
-          <button id="SubmitButton" type="button" onClick={this.onSubmit}>Create user</button>
+          <button className="clickable" id="SubmitButton" type="button" onClick={this.onSubmit}>Create user</button>
         </form>
       </div>
     );

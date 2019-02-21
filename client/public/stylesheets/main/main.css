@@ -75,3 +75,7 @@
 #main ul li.protection_warrior{
     color:#C79C6E !important;
 }
+
+.clickable {
+    cursor: pointer;
+}
