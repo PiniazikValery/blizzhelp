@@ -56,6 +56,21 @@ class Notification extends Component {
     });
   }
 
+  showInfo(_message) {
+    this.notificationDOMRef.current.addNotification({
+      title: 'Info',
+      message: _message,
+      width: 500,
+      type: 'info',
+      insert: 'top',
+      container: 'bottom-right',
+      animationIn: ['animated', 'fadeIn'],
+      animationOut: ['animated', 'fadeOut'],
+      dismiss: { duration: 3000 },
+      dismissable: { click: true },
+    });
+  }
+
   render() {
     return (
       <ReactNotification ref={this.notificationDOMRef} />

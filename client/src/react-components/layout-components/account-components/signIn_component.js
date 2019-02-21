@@ -22,6 +22,7 @@ class SignIn extends Component {
     this.handleEmailTyping = this.handleEmailTyping.bind(this);
     this.handlePasswordTyping = this.handlePasswordTyping.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   onUserAuth(username) {
@@ -74,25 +75,30 @@ class SignIn extends Component {
     });
   }
 
+  handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      this.handleSubmit();
+    }
+  }
+
   render() {
     return (
       <div id="signInMenu">
-        <p className="log_in_arrow">&#9650;</p>
         <form>
-          <h4>Sign In</h4>
+          <h4>Форма входа</h4>
           <ul id="menuFields">
             <li>
-              <input placeholder="Email" id="signInEmail" value={this.state.loginEmail} onChange={this.handleEmailTyping} />
+              <input placeholder="Email" id="signInEmail" value={this.state.loginEmail} onChange={this.handleEmailTyping} onKeyPress={this.handleKeyPress} />
             </li>
             <li>
-              <input type="password" placeholder="Password" id="signInPassword" value={this.state.loginPassword} onChange={this.handlePasswordTyping} />
+              <input type="password" placeholder="Password" id="signInPassword" value={this.state.loginPassword} onChange={this.handlePasswordTyping} onKeyPress={this.handleKeyPress} />
             </li>
           </ul>
-          <button type="button" onClick={this.handleSubmit}>Sign In</button>
+          <button className="clickable" type="button" onClick={this.handleSubmit}>Войти</button>
           <div className="strike">
             <span>or</span>
           </div>
-          <button onClick={() => { window.location.href = '/auth/registration'; }} className="register" type="button">Register</button>
+          <button onClick={() => { window.location.href = '/auth/registration'; }} className="register clickable" type="button">Зарегистрироваться</button>
         </form>
       </div>
     );

@@ -1,0 +1,27 @@
+#ProfileMenu {
+    border: 1px solid #ebebeb;
+    padding-top: 10px;    
+    padding-bottom:10px;
+    width:282px;
+    background-color: #1d364f;
+    position: absolute;
+    right:1px;
+    top:111px;
+}
+
+#ProfileMenu .Option {
+    color: #ebebeb;
+    display: block;
+    padding-bottom: 12px;
+    padding-top: 12px;
+    text-decoration: none;
+}
+
+#ProfileMenu .Option:hover {
+    background-color: #5388b9;
+    color: black;
+}
+
+#ProfileMenu .LogOut:hover {
+    border: 3px solid red;
+}
