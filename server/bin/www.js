@@ -12,6 +12,7 @@ import indexRouter from '../routes';
 import wowRouter from '../routes/wow';
 import authRouter from '../routes/auth';
 import authApi from '../api/routes/auth_api_route';
+import blogApi from '../api/routes/blog_api_route';
 import User from '../models/account/user';
 
 const MongoStore = require('connect-mongo')(session);
@@ -34,7 +35,9 @@ db.once('open', () => {
   user.getCountOfSuperAdmins((err, count) => {
     if (count === 0) {
       user.createSuperAdmin(config.get('superAdminEmail'), config.get('superAdminUserName'), config.get('superAdminPassword'), (creationErr) => {
-        winston.error(creationErr);
+        if (createError) {
+          winston.error(creationErr);
+        }
       });
     }
   });
@@ -69,6 +72,7 @@ app.use('/', indexRouter);
 app.use('/wow', wowRouter);
 app.use('/api', authApi);
 app.use('/auth', authRouter);
+app.use('/blog_api', blogApi);
 
 app.use((req, res, next) => {
   next(createError(404));
