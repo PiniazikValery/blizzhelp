@@ -34,9 +34,11 @@ db.on('error', () => {
 db.once('open', () => {
   user.getCountOfSuperAdmins((err, count) => {
     if (count === 0) {
-      user.createSuperAdmin(config.get('superAdminEmail'), config.get('superAdminUserName'), config.get('superAdminPassword'), (creationErr) => {
-        if (createError) {
+      user.createSuperAdmin(config.get('superAdminEmail'), config.get('superAdminUserName'), config.get('superAdminPassword'), (creationErr, createdSuperAdmin) => {
+        if (creationErr) {
           winston.error(creationErr);
+        } else {
+          winston.info(`Super admin ${createdSuperAdmin} has been created`);
         }
       });
     }

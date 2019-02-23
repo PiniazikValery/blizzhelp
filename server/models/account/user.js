@@ -73,7 +73,7 @@ class User {
       user_role: 'superAdmin',
     };
     this.user.create(userData, (err) => {
-      callback(err);
+      callback(err, userData.username);
     });
   }
 
