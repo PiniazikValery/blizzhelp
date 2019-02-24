@@ -40,9 +40,14 @@ class ArticleImageStorage {
     return this.upload;
   }
 
-  deleteFileById(id) {
-    console.log(id);
-    this.gfs.delete(id);
+  deleteFileById(id, callback) {
+    this.gfs.delete(id, (err) => {
+      if (err) {
+        callback(err);
+      } else {
+        callback();
+      }
+    });
   }
 }
 
