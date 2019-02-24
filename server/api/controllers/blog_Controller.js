@@ -8,8 +8,13 @@ const article = new Article();
 exports.createArticle = (req, res) => {
   article.createArticle(req.body.title, req.file.id, req.session.userId, req.body.content, (err) => {
     if (err) {
-      articleImageStorage.deleteFileById(req.file.id);
-      res.status(500).json({ error: err.message });
+      articleImageStorage.deleteFileById(req.file.id, (deleteFileError) => {
+        if (deleteFileError) {
+          res.status(500).json({ error: deleteFileError.message });
+        } else {
+          res.status(500).json({ error: err.message });
+        }
+      });
     } else {
       res.status(201).json({
         message: `article ${req.body.title} successfully created`,

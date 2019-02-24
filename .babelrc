@@ -1,4 +1,17 @@
 {
-    "presets": ["es2015", "stage-0","react"],
+    "presets": [
+        [
+            "env",
+            {
+                "targets": {
+                    "browsers": [
+                        ">0.25%"
+                    ]
+                }
+            }
+        ],
+        "stage-0",
+        "react"
+    ],
     "plugins": []
 }

@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const path = require('path');
 const multer = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
-const Grid = require('gridfs-stream');
 const config = require('../../config');
 
 class ArticleImageStorage {
@@ -13,8 +12,9 @@ class ArticleImageStorage {
       useNewUrlParser: true,
     });
     mongoose.connection.once('open', () => {
-      this.gfs = Grid(mongoose.connection.db, mongoose.mongo);
-      this.gfs.collection('articleImageUploads');
+      this.gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+        bucketName: 'articleImageUploads',
+      });
     });
     this.storage = new GridFsStorage({
       url: config.get('connectionString'),
@@ -40,8 +40,14 @@ class ArticleImageStorage {
     return this.upload;
   }
 
-  deleteFileById(id) {
-    this.gfs.deleteOne({ _id: id, root: 'articleImageUploads' });
+  deleteFileById(id, callback) {
+    this.gfs.delete(id, (err) => {
+      if (err) {
+        callback(err);
+      } else {
+        callback();
+      }
+    });
   }
 }
 
