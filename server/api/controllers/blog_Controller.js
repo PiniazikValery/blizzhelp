@@ -22,3 +22,15 @@ exports.createArticle = (req, res) => {
     }
   });
 };
+
+exports.deleteArticle = (req, res) => {
+  article.deleteArticle(req.params.id, (err) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(200).json({
+        message: `article with id ${req.params.id} has been successfully removed`,
+      });
+    }
+  });
+};
