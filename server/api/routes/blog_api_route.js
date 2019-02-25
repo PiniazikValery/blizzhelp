@@ -11,5 +11,6 @@ const blogController = require('../controllers/blog_Controller');
 const articleImageStorage = new ArticleImageStorage();
 
 router.post('/article', authMiddleware.apiRequiresToBeAdmin, articleImageStorage.getUpload().single('file'), blogController.createArticle);
+router.delete('/article/:id', authMiddleware.apiRequiresToBeAdmin, blogController.deleteArticle);
 
 module.exports = router;

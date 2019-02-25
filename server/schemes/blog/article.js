@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const ArticleImageStorage = require('../../models/fileStorageFacilities/articleImageStorage');
+
+const articleImageStorage = new ArticleImageStorage();
 
 const ArticleSchema = new mongoose.Schema({
   title: {
@@ -25,6 +28,16 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+});
+
+ArticleSchema.pre('remove', function beforeRemove(next) {
+  articleImageStorage.deleteFileById(this.article_image, (err) => {
+    if (err) {
+      next(err);
+    } else {
+      next();
+    }
+  });
 });
 
 module.exports = ArticleSchema;

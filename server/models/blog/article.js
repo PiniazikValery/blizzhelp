@@ -20,8 +20,22 @@ class Article {
   }
 
   deleteArticle(id, callback) {
-    this.article.remove({ _id: id }, (err) => {
-      callback(err);
+    this.article.findOne({ _id: id }, (err, content) => {
+      if (content) {
+        if (err) {
+          callback(err);
+        } else {
+          content.remove((errDelete) => {
+            if (errDelete) {
+              callback(errDelete);
+            } else {
+              callback();
+            }
+          });
+        }
+      } else {
+        callback(new Error('article not found'));
+      }
     });
   }
 }

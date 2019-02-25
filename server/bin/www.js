@@ -25,6 +25,7 @@ const app = express();
 
 mongoose.connect(config.get('connectionString'), {
   useNewUrlParser: true,
+  useCreateIndex: true,
 });
 const db = mongoose.connection;
 
