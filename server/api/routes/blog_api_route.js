@@ -10,7 +10,9 @@ const blogController = require('../controllers/blog_Controller');
 
 const articleImageStorage = new ArticleImageStorage();
 
-router.post('/article', authMiddleware.apiRequiresToBeAdmin, articleImageStorage.getUpload().single('file'), blogController.createArticle);
+router.post('/article', authMiddleware.apiRequiresToBeAdmin, blogController.createArticle);
 router.delete('/article/:id', authMiddleware.apiRequiresToBeAdmin, blogController.deleteArticle);
+router.put('/article/:id', authMiddleware.apiRequiresToBeAdmin, blogController.updateArticle);
+router.put('/article_image/:id', authMiddleware.apiRequiresToBeAdmin, articleImageStorage.getUpload().single('file'), blogController.setImageToArticle);
 
 module.exports = router;
