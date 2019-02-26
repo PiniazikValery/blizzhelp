@@ -30,7 +30,7 @@ class Article {
           });
         }
       } else {
-        callback(new Error('article not found'));
+        callback(new Error('Article not found'));
       }
     });
   }
@@ -57,22 +57,26 @@ class Article {
 
   setImageToArticle(articleId, imageId, callback) {
     this.getArticleById(articleId, (err, content) => {
-      if (content.article_image) {
-        articleImageStorage.deleteFileById(content.article_image, (errDelete) => {
-          if (errDelete) {
-            callback(errDelete);
+      if (!err) {
+        this.article.findByIdAndUpdate(articleId, { article_image: imageId }, (errUpdate) => {
+          if (!errUpdate) {
+            if (content.article_image !== null) {
+              articleImageStorage.deleteFileById(content.article_image, (deleteImageError) => {
+                if (!deleteImageError) {
+                  callback(err);
+                } else {
+                  callback(deleteImageError);
+                }
+              });
+            } else {
+              callback(err);
+            }
           } else {
-            callback(err);
+            callback(errUpdate);
           }
         });
       } else {
-        this.article.findByIdAndUpdate(articleId, { article_image: imageId }, (errFind) => {
-          if (errFind) {
-            callback(errFind);
-          } else {
-            callback(err);
-          }
-        });
+        callback(err);
       }
     });
   }
