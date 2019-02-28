@@ -3,6 +3,8 @@ const ArticleImageStorage = require('../../models/fileStorageFacilities/articleI
 
 const articleImageStorage = new ArticleImageStorage();
 
+const topics = ['WoW', 'Overwatch', 'Hearthstone'];
+
 const ArticleSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -14,6 +16,10 @@ const ArticleSchema = new mongoose.Schema({
   },
   autor: {
     type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
+  topic: {
+    type: String,
     required: true,
   },
   createDate: {
@@ -28,6 +34,14 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+});
+
+ArticleSchema.pre('save', function beforeSave(next) {
+  if (topics.includes(this.topic)) {
+    next();
+  } else {
+    next(new Error('Wrong topic name'));
+  }
 });
 
 ArticleSchema.pre('remove', function beforeRemove(next) {

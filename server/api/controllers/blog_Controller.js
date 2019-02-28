@@ -6,6 +6,7 @@ exports.createArticle = (req, res) => {
   article.createArticle({
     title: req.body.title,
     autor: req.session.userId,
+    topic: req.body.topic,
     updateDate: new Date(),
     content: req.body.content,
   }, (err) => {
@@ -35,6 +36,7 @@ exports.updateArticle = (req, res) => {
   article.updateArticle(req.params.id, {
     title: req.body.title,
     autor: req.session.userId,
+    topic: req.body.topic,
     updateDate: new Date(),
     content: req.body.content,
   }, (err) => {

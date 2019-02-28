@@ -12,9 +12,32 @@ const blogController = require('../controllers/blog_Controller');
 
 const articleImageStorage = new ArticleImageStorage();
 
-router.post('/article', authMiddleware.apiRequiresToBeAdmin, blogController.createArticle);
-router.delete('/article/:id', authMiddleware.apiRequiresToBeAdmin, blogController.deleteArticle);
-router.put('/article/:id', authMiddleware.apiRequiresToBeAdmin, blogController.updateArticle);
-router.put('/article_image/:id', authMiddleware.apiRequiresToBeAdmin, articleMiddleware.requiresExistingArticle, articleImageStorage.getUpload().single('file'), blogController.setImageToArticle);
+router.post(
+  '/article',
+  authMiddleware.apiRequiresToBeAdmin,
+  blogController.createArticle,
+);
+router.delete(
+  '/article/:id',
+  authMiddleware.apiRequiresToBeAdmin,
+  articleMiddleware.requiresExistingArticle,
+  articleMiddleware.requiresToBeCreatorOrSuperAdmin,
+  blogController.deleteArticle,
+);
+router.put(
+  '/article/:id',
+  authMiddleware.apiRequiresToBeAdmin,
+  articleMiddleware.requiresExistingArticle,
+  articleMiddleware.requiresToBeCreatorOrSuperAdmin,
+  blogController.updateArticle,
+);
+router.put(
+  '/article_image/:id',
+  authMiddleware.apiRequiresToBeAdmin,
+  articleMiddleware.requiresExistingArticle,
+  articleMiddleware.requiresToBeCreatorOrSuperAdmin,
+  articleImageStorage.getUpload().single('file'),
+  blogController.setImageToArticle,
+);
 
 module.exports = router;
