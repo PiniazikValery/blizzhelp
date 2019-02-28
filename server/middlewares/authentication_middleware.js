@@ -51,9 +51,9 @@ exports.apiRequiresToBeAdmin = (req, res, next) => {
         next();
       } else {
         res.status(403).json({
-          user_authenticated: false,
-          username: null,
-          user_role: null,
+          user_authenticated: true,
+          username: foundUser.username,
+          user_role: foundUser.user_role,
         });
       }
     });
