@@ -8,7 +8,7 @@ exports.createArticle = (req, res) => {
     autor: req.session.userId,
     topic: req.body.topic,
     updateDate: new Date(),
-    content: req.body.content,
+    preViewContent: req.body.preViewContent,
   }, (err) => {
     if (err) {
       res.status(500).json({ error: err.message });
@@ -38,7 +38,7 @@ exports.updateArticle = (req, res) => {
     autor: req.session.userId,
     topic: req.body.topic,
     updateDate: new Date(),
-    content: req.body.content,
+    preViewContent: req.body.preViewContent,
   }, (err) => {
     if (err) {
       res.status(500).json({ error: err.message });

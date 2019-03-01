@@ -36,11 +36,21 @@ class Article {
   }
 
   updateArticle(id, articleData, callback) {
-    this.article.findByIdAndUpdate(id, articleData, (err) => {
-      if (err) {
-        callback(err);
+    this.article.findOne({ _id: id }, (err, content) => {
+      if (content) {
+        if (err) {
+          callback(err);
+        } else {
+          content.updateOne(articleData, (updateErr) => {
+            if (updateErr) {
+              callback(updateErr);
+            } else {
+              callback();
+            }
+          });
+        }
       } else {
-        callback();
+        callback(new Error('Article not found'));
       }
     });
   }
