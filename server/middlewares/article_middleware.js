@@ -1,8 +1,10 @@
 const Article = require('../models/blog/article');
 const User = require('../models/account/user');
+const ArticleImageStorage = require('../models/fileStorageFacilities/articleImageStorage');
 
 const user = new User();
 const article = new Article();
+const articleImageStorage = new ArticleImageStorage();
 
 exports.requiresExistingArticle = (req, res, next) => {
   article.getArticleById(req.params.id, (err) => {
@@ -31,5 +33,27 @@ exports.requiresToBeCreatorOrSuperAdmin = (req, res, next) => {
         next();
       }
     });
+  });
+};
+
+exports.deleteExistingArticleImage = (req, res, next) => {
+  article.getArticleById(req.params.id, (err, foundArticle) => {
+    if (!err) {
+      if (foundArticle.article_image !== null) {
+        articleImageStorage.deleteFileById(foundArticle.article_image, (errDelete) => {
+          if (errDelete) {
+            next(errDelete);
+          } else {
+            foundArticle.updateOne({ $set: { article_image: null } }, (updateErr) => {
+              next(updateErr);
+            });
+          }
+        });
+      } else {
+        next();
+      }
+    } else {
+      next(err);
+    }
   });
 };

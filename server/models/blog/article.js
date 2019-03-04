@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 const ArticleSchema = require('../../schemes/blog/article');
-const ArticleImageStorage = require('../../models/fileStorageFacilities/articleImageStorage');
-
-const articleImageStorage = new ArticleImageStorage();
+const ArticleContent = require('./articleContent');
 
 class Article {
   constructor() {
     this.article = mongoose.model('Article', ArticleSchema);
+    this.articleContent = new ArticleContent();
   }
 
   createArticle(articleData, callback) {
@@ -36,11 +35,21 @@ class Article {
   }
 
   updateArticle(id, articleData, callback) {
-    this.article.findByIdAndUpdate(id, articleData, (err) => {
-      if (err) {
-        callback(err);
+    this.article.findOne({ _id: id }, (err, content) => {
+      if (content) {
+        if (err) {
+          callback(err);
+        } else {
+          content.updateOne(articleData, (updateErr) => {
+            if (updateErr) {
+              callback(updateErr);
+            } else {
+              callback();
+            }
+          });
+        }
       } else {
-        callback();
+        callback(new Error('Article not found'));
       }
     });
   }
@@ -56,28 +65,58 @@ class Article {
   }
 
   setImageToArticle(articleId, imageId, callback) {
-    this.getArticleById(articleId, (err, content) => {
-      if (!err) {
-        this.article.findByIdAndUpdate(articleId, { article_image: imageId }, (errUpdate) => {
-          if (!errUpdate) {
-            if (content.article_image !== null) {
-              articleImageStorage.deleteFileById(content.article_image, (deleteImageError) => {
-                if (!deleteImageError) {
-                  callback(err);
-                } else {
-                  callback(deleteImageError);
-                }
-              });
-            } else {
-              callback(err);
-            }
+    this.article.findByIdAndUpdate(articleId, { article_image: imageId }, (errUpdate) => {
+      callback(errUpdate);
+    });
+  }
+
+  setContentToArticle(articleId, content, callback) {
+    this.articleContent.createArticleContent(articleId, content, (createErr, createdContent) => {
+      if (createErr) {
+        callback(createErr);
+      } else {
+        this.getArticleById(articleId, (foundErr, foundContent) => {
+          if (foundErr) {
+            callback(foundErr);
           } else {
-            callback(errUpdate);
+            foundContent.updateOne({ $set: { fullContent: createdContent.id } }, (updateErr) => {
+              if (updateErr) {
+                callback(updateErr);
+              } else {
+                callback();
+              }
+            });
           }
         });
-      } else {
-        callback(err);
       }
+    });
+  }
+
+  deleteArticleContent(articleId, callback) {
+    this.articleContent.deleteArticleContentByArticleId(articleId, (errDelete) => {
+      if (errDelete) {
+        callback(errDelete);
+      } else {
+        this.getArticleById(articleId, (foundErr, foundContent) => {
+          if (foundErr) {
+            callback(foundErr);
+          } else {
+            foundContent.updateOne({ $set: { fullContent: null } }, (updateErr) => {
+              if (updateErr) {
+                callback(updateErr);
+              } else {
+                callback();
+              }
+            });
+          }
+        });
+      }
+    });
+  }
+
+  updateArticleContent(articleId, content, callback) {
+    this.articleContent.updateArticleContentByArticleId(articleId, content, (err) => {
+      callback(err);
     });
   }
 }

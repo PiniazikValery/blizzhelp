@@ -37,13 +37,13 @@ class ArticleImageStorage {
   }
 
   deleteFileById(id, callback) {
-    this.gfs.delete(id, (err) => {
-      if (err) {
+    if (id !== null) {
+      this.gfs.delete(id, (err) => {
         callback(err);
-      } else {
-        callback();
-      }
-    });
+      });
+    } else {
+      callback();
+    }
   }
 }
 
