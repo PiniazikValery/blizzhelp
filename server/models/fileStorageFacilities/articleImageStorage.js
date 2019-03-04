@@ -36,6 +36,10 @@ class ArticleImageStorage {
     return this.upload;
   }
 
+  getDownloadStreamOfFileById(id, callback) {
+    callback(this.gfs.openDownloadStream(id));
+  }
+
   deleteFileById(id, callback) {
     if (id !== null) {
       this.gfs.delete(id, (err) => {

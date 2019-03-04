@@ -1,6 +1,8 @@
 const Article = require('../../models/blog/article');
+const ArticleImageStorage = require('../../models/fileStorageFacilities/articleImageStorage');
 
 const article = new Article();
+const articleImageStorage = new ArticleImageStorage();
 
 exports.createArticle = (req, res) => {
   article.createArticle({
@@ -86,6 +88,36 @@ exports.updateArticleContent = (req, res) => {
       res.status(500).json({ error: err.message });
     } else {
       res.status(201).json({ message: `Content in article with id ${req.params.id} has been updated` });
+    }
+  });
+};
+
+exports.getArticlesByPage = (req, res) => {
+  article.getArticlesByPage(req.params.page, req.params.topic, (err, result) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(200).json(result);
+    }
+  });
+};
+
+exports.getArticleImage = (req, res) => {
+  article.getArticleById(req.params.id, (err, result) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      articleImageStorage.getDownloadStreamOfFileById(result.article_image, (downloadStream) => {
+        downloadStream.on('data', (chunk) => {
+          res.write(chunk);
+        });
+        downloadStream.on('error', () => {
+          res.sendStatus(404);
+        });
+        downloadStream.on('end', () => {
+          res.end();
+        });
+      });
     }
   });
 };

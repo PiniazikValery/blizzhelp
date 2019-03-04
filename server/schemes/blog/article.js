@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 const ArticleImageStorage = require('../../models/fileStorageFacilities/articleImageStorage');
 const ArticleContent = require('../../models/blog/articleContent');
 
@@ -41,6 +42,8 @@ const ArticleSchema = new mongoose.Schema({
     default: null,
   },
 });
+
+ArticleSchema.plugin(mongoosePaginate);
 
 const validateTopic = (topic, callback) => {
   if (topics.includes(topic) || topic === undefined) {

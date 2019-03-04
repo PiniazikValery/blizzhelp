@@ -65,4 +65,14 @@ router.put(
   blogController.updateArticleContent,
 );
 
+router.get(
+  '/articles/page=:page&topic=:topic',
+  blogController.getArticlesByPage,
+);
+
+router.get(
+  '/article_image/:id',
+  blogController.getArticleImage,
+);
+
 module.exports = router;

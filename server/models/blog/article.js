@@ -119,6 +119,12 @@ class Article {
       callback(err);
     });
   }
+
+  getArticlesByPage(_page, _topic, callback) {
+    this.article.paginate({ topic: _topic }, { page: _page, limit: 10, sort: { createDate: -1 } }, (err, result) => {
+      callback(err, result);
+    });
+  }
 }
 
 module.exports = Article;
