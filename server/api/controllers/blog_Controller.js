@@ -59,3 +59,33 @@ exports.setImageToArticle = (req, res) => {
     }
   });
 };
+
+exports.setContentToArticle = (req, res) => {
+  article.setContentToArticle(req.params.id, req.body.content, (err) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(201).json({ message: `Content added to the article with id ${req.params.id}` });
+    }
+  });
+};
+
+exports.deleteArticleContent = (req, res) => {
+  article.deleteArticleContent(req.params.id, (err) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(201).json({ message: `Content in article with id ${req.params.id} has been deleted` });
+    }
+  });
+};
+
+exports.updateArticleContent = (req, res) => {
+  article.updateArticleContent(req.params.id, req.body.content, (err) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(201).json({ message: `Content in article with id ${req.params.id} has been updated` });
+    }
+  });
+};

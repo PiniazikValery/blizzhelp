@@ -5,6 +5,10 @@ const ArticleContentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  articleId: {
+    type: mongoose.Schema.Types.ObjectId,
+    unique: true,
+  },
 });
 
 module.exports = ArticleContentSchema;

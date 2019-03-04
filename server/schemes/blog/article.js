@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const ArticleImageStorage = require('../../models/fileStorageFacilities/articleImageStorage');
+const ArticleContent = require('../../models/blog/articleContent');
 
 const articleImageStorage = new ArticleImageStorage();
+const articleContent = new ArticleContent();
 const topics = ['WoW', 'Overwatch', 'Hearthstone'];
 
 const ArticleSchema = new mongoose.Schema({
@@ -41,7 +43,7 @@ const ArticleSchema = new mongoose.Schema({
 });
 
 const validateTopic = (topic, callback) => {
-  if (topics.includes(topic)) {
+  if (topics.includes(topic) || topic === undefined) {
     callback();
   } else {
     callback(new Error('Wrong topic name'));
@@ -50,21 +52,13 @@ const validateTopic = (topic, callback) => {
 
 ArticleSchema.pre('save', function beforeSave(next) {
   validateTopic(this.topic, (err) => {
-    if (err) {
-      next(new Error('Wrong topic name'));
-    } else {
-      next();
-    }
+    next(err);
   });
 });
 
 ArticleSchema.pre('updateOne', function beforeUpdate(next) {
   validateTopic(this.getUpdate().topic, (err) => {
-    if (err) {
-      next(new Error('Wrong topic name'));
-    } else {
-      next();
-    }
+    next(err);
   });
 });
 
@@ -73,7 +67,9 @@ ArticleSchema.pre('remove', function beforeRemove(next) {
     if (err) {
       next(err);
     } else {
-      next();
+      articleContent.deleteArticleContent(this.fullContent, (deleteContentErr) => {
+        next(deleteContentErr);
+      });
     }
   });
 });

@@ -36,8 +36,33 @@ router.put(
   authMiddleware.apiRequiresToBeAdmin,
   articleMiddleware.requiresExistingArticle,
   articleMiddleware.requiresToBeCreatorOrSuperAdmin,
+  articleMiddleware.deleteExistingArticleImage,
   articleImageStorage.getUpload().single('file'),
   blogController.setImageToArticle,
+);
+
+router.post(
+  '/article_content/:id',
+  authMiddleware.apiRequiresToBeAdmin,
+  articleMiddleware.requiresExistingArticle,
+  articleMiddleware.requiresToBeCreatorOrSuperAdmin,
+  blogController.setContentToArticle,
+);
+
+router.delete(
+  '/article_content/:id',
+  authMiddleware.apiRequiresToBeAdmin,
+  articleMiddleware.requiresExistingArticle,
+  articleMiddleware.requiresToBeCreatorOrSuperAdmin,
+  blogController.deleteArticleContent,
+);
+
+router.put(
+  '/article_content/:id',
+  authMiddleware.apiRequiresToBeAdmin,
+  articleMiddleware.requiresExistingArticle,
+  articleMiddleware.requiresToBeCreatorOrSuperAdmin,
+  blogController.updateArticleContent,
 );
 
 module.exports = router;
