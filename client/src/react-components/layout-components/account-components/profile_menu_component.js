@@ -43,8 +43,14 @@ class ProfileMenu extends Component {
         notificators.mainNotificator.showInfo(result.message);
       })
       .catch((error) => {
-        if (error.message === '501') {
-          notificators.mainNotificator.showError('Error occure while create user');
+        this.onUserLogOut();
+        switch (error.message) {
+          case '401':
+            notificators.mainNotificator.showInfo('User was already loged out');
+            break;
+          default:
+            notificators.mainNotificator.showError('Error occure while create user');
+            break;
         }
       });
   }

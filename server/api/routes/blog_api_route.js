@@ -38,6 +38,7 @@ router.put(
   articleMiddleware.requiresToBeCreatorOrSuperAdmin,
   articleMiddleware.deleteExistingArticleImage,
   articleImageStorage.getUpload().single('file'),
+  articleMiddleware.handleFileUploadError,
   blogController.setImageToArticle,
 );
 
@@ -63,6 +64,26 @@ router.put(
   articleMiddleware.requiresExistingArticle,
   articleMiddleware.requiresToBeCreatorOrSuperAdmin,
   blogController.updateArticleContent,
+);
+
+router.get(
+  '/articles/page=:page&topic=:topic',
+  blogController.getArticlesByPage,
+);
+
+router.get(
+  '/article_image/:id',
+  blogController.getArticleImage,
+);
+
+router.get(
+  '/article/:id',
+  blogController.getArticle,
+);
+
+router.get(
+  '/article_content/:id',
+  blogController.getArticleContent,
 );
 
 module.exports = router;

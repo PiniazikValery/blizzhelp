@@ -119,6 +119,22 @@ class Article {
       callback(err);
     });
   }
+
+  getArticlesByPage(_page, _topic, callback) {
+    this.article.paginate({ topic: _topic }, { page: _page, limit: 10, sort: { createDate: -1 } }, (err, result) => {
+      callback(err, result);
+    });
+  }
+
+  getArticleContent(articleId, callback) {
+    this.articleContent.getArticleContentByArticleId(articleId, (err, result) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(err, result.content);
+      }
+    });
+  }
 }
 
 module.exports = Article;
