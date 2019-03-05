@@ -38,6 +38,7 @@ router.put(
   articleMiddleware.requiresToBeCreatorOrSuperAdmin,
   articleMiddleware.deleteExistingArticleImage,
   articleImageStorage.getUpload().single('file'),
+  articleMiddleware.handleFileUploadError,
   blogController.setImageToArticle,
 );
 
@@ -73,6 +74,11 @@ router.get(
 router.get(
   '/article_image/:id',
   blogController.getArticleImage,
+);
+
+router.get(
+  '/article/:id',
+  blogController.getArticle,
 );
 
 module.exports = router;

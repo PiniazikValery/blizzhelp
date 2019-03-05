@@ -121,3 +121,13 @@ exports.getArticleImage = (req, res) => {
     }
   });
 };
+
+exports.getArticle = (req, res) => {
+  article.getArticleById(req.params.id, (err, result) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(200).json(result);
+    }
+  });
+};

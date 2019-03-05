@@ -29,7 +29,16 @@ class ArticleImageStorage {
         });
       }),
     });
-    this.upload = multer({ storage: this.storage });
+    this.upload = multer({
+      storage: this.storage,
+      fileFilter: (req, file, cb) => {
+        if (!file.mimetype.includes('image')) {
+          req.fileValidationError = true;
+          return cb(null, false, req.fileValidationError);
+        }
+        return cb(null, true);
+      },
+    });
   }
 
   getUpload() {

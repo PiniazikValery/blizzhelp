@@ -57,3 +57,11 @@ exports.deleteExistingArticleImage = (req, res, next) => {
     }
   });
 };
+
+exports.handleFileUploadError = (req, res, next) => {
+  if (req.fileValidationError) {
+    res.status(412).json({ error: 'Wrong file type' });
+  } else {
+    next();
+  }
+};
