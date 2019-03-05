@@ -2,6 +2,8 @@ exports.get_wow = (req, res) => {
   res.render('wow/index', {
     title: 'Blizzhelp',
     dropdownFor: 'wow',
+    pageNumber: 1,
+    topic: 'WoW',
   });
 };
 

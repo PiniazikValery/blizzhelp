@@ -1,0 +1,57 @@
+.articleElement {
+    cursor: pointer;
+    margin-right: 50px;
+    height: 200px;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.articleElement:hover {
+    background-color: #284967;
+}
+
+.articleElement .title {
+    display: block;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 24px !important;
+    line-height: 30px !important;
+    font-weight: 600;
+    padding-bottom: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.articleElement .preViewContent {
+    color: #cccccc;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 7;
+}
+
+.articleElement .topic {
+    color: #78dcff;
+    position:absolute;
+    border:2px solid;
+    margin:0;
+    padding:5px;
+    bottom:0;
+    right:0;
+}
+
+.articleInfo {
+    position: relative;
+    height: 100%;
+}
+
+.article_image {
+    object-fit: cover;
+    width: 350px;
+    height: 200px;
+    float: left;
+    margin-right: 10px;
+}
