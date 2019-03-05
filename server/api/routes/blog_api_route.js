@@ -81,4 +81,9 @@ router.get(
   blogController.getArticle,
 );
 
+router.get(
+  '/article_content/:id',
+  blogController.getArticleContent,
+);
+
 module.exports = router;

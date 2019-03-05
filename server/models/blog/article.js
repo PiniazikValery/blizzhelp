@@ -125,6 +125,16 @@ class Article {
       callback(err, result);
     });
   }
+
+  getArticleContent(articleId, callback) {
+    this.articleContent.getArticleContentByArticleId(articleId, (err, result) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(err, result.content);
+      }
+    });
+  }
 }
 
 module.exports = Article;

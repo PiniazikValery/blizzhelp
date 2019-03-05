@@ -131,3 +131,13 @@ exports.getArticle = (req, res) => {
     }
   });
 };
+
+exports.getArticleContent = (req, res) => {
+  article.getArticleContent(req.params.id, (err, result) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(200).json({ content: result });
+    }
+  });
+};
