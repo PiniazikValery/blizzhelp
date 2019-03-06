@@ -1,3 +1,3 @@
 exports.get_home = (req, res) => {
-  res.render('index', { title: 'Blizzhelp' });
+  res.redirect('/article/page=1&topic=Any');
 };
