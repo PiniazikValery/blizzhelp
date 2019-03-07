@@ -4,19 +4,43 @@ const ArticleImageStorage = require('../../models/fileStorageFacilities/articleI
 const article = new Article();
 const articleImageStorage = new ArticleImageStorage();
 
-exports.createArticle = (req, res) => {
+exports.createArticle = (req, res, next) => {
   article.createArticle({
     title: req.body.title,
     autor: req.session.userId,
     topic: req.body.topic,
     updateDate: new Date(),
     preViewContent: req.body.preViewContent,
-  }, (err) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
+  }, (setArticleErr, content) => {
+    if (setArticleErr) {
+      req.createArticleError = {
+        errorType: 'articleUploadError',
+        error: setArticleErr,
+      };
+      next();
     } else {
-      res.status(201).json({
-        message: `article ${req.body.title} successfully created`,
+      article.setImageToArticle(content.id, req.file.id, (setImageErr) => {
+        if (setImageErr) {
+          req.createArticleError = {
+            errorType: 'imageUploadError',
+            articleId: content.id,
+            error: setImageErr,
+          };
+          next();
+        } else {
+          article.setContentToArticle(content.id, req.body.content, (setContentErr) => {
+            if (setContentErr) {
+              req.createArticleError = {
+                errorType: 'contentUploadError',
+                articleId: content.id,
+                error: setContentErr,
+              };
+              next();
+            } else {
+              res.status(201).json({ message: `Added article with id ${content.id}` });
+            }
+          });
+        }
       });
     }
   });

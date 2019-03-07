@@ -9,7 +9,7 @@ const articleImageStorage = new ArticleImageStorage();
 exports.requiresExistingArticle = (req, res, next) => {
   article.getArticleById(req.params.id, (err) => {
     if (err) {
-      res.status(401).json({ error: 'Article not found' });
+      res.status(404).json({ error: 'Article not found' });
     } else {
       next();
     }
@@ -59,8 +59,65 @@ exports.deleteExistingArticleImage = (req, res, next) => {
 };
 
 exports.handleFileUploadError = (req, res, next) => {
-  if (req.fileValidationError) {
-    res.status(412).json({ error: 'Wrong file type' });
+  if (req.fileUploadError === undefined) {
+    if (req.file === undefined) {
+      res.status(422).json({
+        error: 'No file to upload found',
+      });
+    } else {
+      next();
+    }
+  } else {
+    switch (req.fileUploadError.errorType) {
+      case 'fileValidationError':
+        res.status(422).json({
+          error: 'Wrong file type',
+        });
+        break;
+      default:
+        res.status(500).json({
+          error: req.fileUploadError.error.message,
+          message: 'Some error occure while uploading file',
+        });
+    }
+  }
+};
+
+exports.handleArticleUploadErrors = (req, res, next) => {
+  if (req.createArticleError !== undefined) {
+    switch (req.createArticleError.errorType) {
+      case 'articleUploadError':
+        articleImageStorage.deleteFileById(req.file.id, () => {
+          res.status(422).json({
+            message: 'Unable to create article',
+            error: req.createArticleError.error.message,
+          });
+        });
+        break;
+      case 'imageUploadError':
+        article.deleteArticle(req.createArticleError.articleId, () => {
+          res.status(422).json({
+            message: 'Unable to upload image',
+            error: req.createArticleError.error.message,
+          });
+        });
+        break;
+      case 'contentUploadError':
+        article.deleteArticle(req.createArticleError.articleId, () => {
+          res.status(500).json({
+            message: 'Unable to create content of the article',
+            error: req.createArticleError.error.message,
+          });
+        });
+        break;
+      default:
+        article.deleteArticle(req.createArticleError.articleId, () => {
+          res.status(500).json({
+            message: 'Some error occure while uploading article',
+            error: req.createArticleError.error.message,
+          });
+        });
+    }
   } else {
     next();
   }

@@ -9,8 +9,8 @@ class Article {
   }
 
   createArticle(articleData, callback) {
-    this.article.create(articleData, (err) => {
-      callback(err);
+    this.article.create(articleData, (err, content) => {
+      callback(err, content);
     });
   }
 

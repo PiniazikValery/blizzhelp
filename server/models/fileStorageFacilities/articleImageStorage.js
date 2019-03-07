@@ -33,8 +33,8 @@ class ArticleImageStorage {
       storage: this.storage,
       fileFilter: (req, file, cb) => {
         if (!file.mimetype.includes('image')) {
-          req.fileValidationError = true;
-          return cb(null, false, req.fileValidationError);
+          req.fileUploadError = { errorType: 'fileValidationError' };
+          return cb(null, false, req.fileUploadError);
         }
         return cb(null, true);
       },

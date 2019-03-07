@@ -15,7 +15,10 @@ const articleImageStorage = new ArticleImageStorage();
 router.post(
   '/article',
   authMiddleware.apiRequiresToBeAdmin,
+  articleImageStorage.getUpload().single('file'),
+  articleMiddleware.handleFileUploadError,
   blogController.createArticle,
+  articleMiddleware.handleArticleUploadErrors,
 );
 router.delete(
   '/article/:id',
