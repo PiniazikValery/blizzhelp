@@ -10,6 +10,8 @@ import config from '../config';
 import webpackDevServer from '../../webpack/dev-server';
 import indexRouter from '../routes';
 import wowRouter from '../routes/wow';
+import articleRouter from '../routes/article';
+import overwatchRouter from '../routes/overwatch';
 import authRouter from '../routes/auth';
 import authApi from '../api/routes/auth_api_route';
 import blogApi from '../api/routes/blog_api_route';
@@ -73,6 +75,8 @@ app.use(express.static(path.join(__dirname, '../../client/public')));
 
 app.use('/', indexRouter);
 app.use('/wow', wowRouter);
+app.use('/article', articleRouter);
+app.use('/overwatch', overwatchRouter);
 app.use('/api', authApi);
 app.use('/auth', authRouter);
 app.use('/blog_api', blogApi);

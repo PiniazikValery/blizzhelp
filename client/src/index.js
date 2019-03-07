@@ -12,6 +12,7 @@ const apps = {
   'registrationForm': () => import('./react-components/registration-components/registration_component'),
   'mainNotificator': () => import('./react-components/layout-components/notification-components/notifications-component'),
   'unauthorizedHandler': () => import('./react-components/error-handler-components/unauthorized_handler_component'),
+  'listOfArticlesComponent': () => import('./react-components/blog-components/list_of_articles_component'),
 };
 
 const renderAppInElement = (el) => {

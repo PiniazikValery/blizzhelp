@@ -121,9 +121,15 @@ class Article {
   }
 
   getArticlesByPage(_page, _topic, callback) {
-    this.article.paginate({ topic: _topic }, { page: _page, limit: 10, sort: { createDate: -1 } }, (err, result) => {
-      callback(err, result);
-    });
+    if (_topic.toLowerCase() === 'any') {
+      this.article.paginate({ }, { page: _page, limit: 10, sort: { createDate: -1 } }, (err, result) => {
+        callback(err, result);
+      });
+    } else {
+      this.article.paginate({ topic: _topic }, { page: _page, limit: 10, sort: { createDate: -1 } }, (err, result) => {
+        callback(err, result);
+      });
+    }
   }
 
   getArticleContent(articleId, callback) {
