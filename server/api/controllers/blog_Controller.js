@@ -142,16 +142,6 @@ exports.articleSuccessfullyUpdated = (req, res) => {
   });
 };
 
-exports.deleteArticleContent = (req, res) => {
-  article.deleteArticleContent(req.params.id, (err) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-    } else {
-      res.status(201).json({ message: `Content in article with id ${req.params.id} has been deleted` });
-    }
-  });
-};
-
 exports.getArticlesByPage = (req, res) => {
   article.getArticlesByPage(req.params.page, req.params.topic, (err, result) => {
     if (err) {

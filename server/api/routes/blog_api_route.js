@@ -42,24 +42,6 @@ router.put(
   blogController.updateArticleContent,
   blogController.articleSuccessfullyUpdated,
 );
-router.put(
-  '/article_image/:id',
-  authMiddleware.apiRequiresToBeAdmin,
-  articleMiddleware.requiresExistingArticle,
-  articleMiddleware.requiresToBeCreatorOrSuperAdmin,
-  articleMiddleware.deleteExistingArticleImage,
-  articleImageStorage.getUpload().single('file'),
-  articleMiddleware.handleFileUploadError,
-  blogController.setImageToArticle,
-);
-
-router.delete(
-  '/article_content/:id',
-  authMiddleware.apiRequiresToBeAdmin,
-  articleMiddleware.requiresExistingArticle,
-  articleMiddleware.requiresToBeCreatorOrSuperAdmin,
-  blogController.deleteArticleContent,
-);
 
 router.get(
   '/articles/page=:page&topic=:topic',
