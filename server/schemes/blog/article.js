@@ -46,7 +46,7 @@ const ArticleSchema = new mongoose.Schema({
 ArticleSchema.plugin(mongoosePaginate);
 
 const validateTopic = (topic, callback) => {
-  if (topics.includes(topic) || topic === undefined) {
+  if (topics.includes(topic) && topic !== undefined) {
     callback();
   } else {
     callback(new Error('Wrong topic name'));

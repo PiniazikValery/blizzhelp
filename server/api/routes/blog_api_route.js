@@ -18,7 +18,9 @@ router.post(
   articleImageStorage.getUpload().single('file'),
   articleMiddleware.handleFileUploadError,
   blogController.createArticle,
-  articleMiddleware.handleArticleUploadErrors,
+  blogController.setImageToArticle,
+  blogController.setContentToArticle,
+  blogController.articleSuccessfullyCreated,
 );
 router.delete(
   '/article/:id',
@@ -32,7 +34,13 @@ router.put(
   authMiddleware.apiRequiresToBeAdmin,
   articleMiddleware.requiresExistingArticle,
   articleMiddleware.requiresToBeCreatorOrSuperAdmin,
+  blogController.casheArticleBeforeUpdate,
+  articleImageStorage.getUpload().single('file'),
+  articleMiddleware.handleFileUploadError,
+  blogController.updateArticleImage,
   blogController.updateArticle,
+  blogController.updateArticleContent,
+  blogController.articleSuccessfullyUpdated,
 );
 router.put(
   '/article_image/:id',
@@ -45,28 +53,12 @@ router.put(
   blogController.setImageToArticle,
 );
 
-router.post(
-  '/article_content/:id',
-  authMiddleware.apiRequiresToBeAdmin,
-  articleMiddleware.requiresExistingArticle,
-  articleMiddleware.requiresToBeCreatorOrSuperAdmin,
-  blogController.setContentToArticle,
-);
-
 router.delete(
   '/article_content/:id',
   authMiddleware.apiRequiresToBeAdmin,
   articleMiddleware.requiresExistingArticle,
   articleMiddleware.requiresToBeCreatorOrSuperAdmin,
   blogController.deleteArticleContent,
-);
-
-router.put(
-  '/article_content/:id',
-  authMiddleware.apiRequiresToBeAdmin,
-  articleMiddleware.requiresExistingArticle,
-  articleMiddleware.requiresToBeCreatorOrSuperAdmin,
-  blogController.updateArticleContent,
 );
 
 router.get(
