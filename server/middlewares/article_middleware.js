@@ -122,3 +122,59 @@ exports.handleArticleUploadErrors = (req, res, next) => {
     next();
   }
 };
+
+exports.handleArticleUpdateErrors = (req, res, next) => {
+  if (req.updateArticleError !== undefined) {
+    articleImageStorage.deleteFileById(req.file.id, () => {
+      switch (req.updateArticleError.errorType) {
+        case 'getArticleError':
+          res.status(404).json({
+            message: 'Unable to find article',
+            error: req.updateArticleError.error.message,
+          });
+          break;
+        case 'articleUpdateError':
+          article.updateArticle(req.updateArticleError.articleId, req.originContent, () => {
+            res.status(422).json({
+              message: 'Unable to update article',
+              error: req.updateArticleError.error.message,
+            });
+          });
+          break;
+        case 'contentUpdateError':
+          article.updateArticle(req.updateArticleError.articleId, req.originContent, () => {
+            res.status(422).json({
+              message: 'Unable to update content of the article',
+              error: req.updateArticleError.error.message,
+            });
+          });
+          break;
+        case 'contentUploadError':
+          article.updateArticle(req.updateArticleError.articleId, req.originContent, () => {
+            res.status(500).json({
+              message: 'Unable to create content of the article',
+              error: req.updateArticleError.error.message,
+            });
+          });
+          break;
+        case 'imageUpdateError':
+          article.updateArticle(req.updateArticleError.articleId, req.originContent, () => {
+            res.status(500).json({
+              message: 'Unable to update image of the article',
+              error: req.updateArticleError.error.message,
+            });
+          });
+          break;
+        default:
+          article.updateArticle(req.updateArticleError.articleId, req.originContent, () => {
+            res.status(500).json({
+              message: 'Unable to update content of the article',
+              error: req.updateArticleError.error.message,
+            });
+          });
+      }
+    });
+  } else {
+    next();
+  }
+};

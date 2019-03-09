@@ -58,19 +58,69 @@ exports.deleteArticle = (req, res) => {
   });
 };
 
-exports.updateArticle = (req, res) => {
-  article.updateArticle(req.params.id, {
-    title: req.body.title,
-    autor: req.session.userId,
-    topic: req.body.topic,
-    updateDate: new Date(),
-    preViewContent: req.body.preViewContent,
-  }, (err) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
+exports.updateArticle = (req, res, next) => {
+  article.getArticleById(req.params.id, (getArticleErr, content) => {
+    if (getArticleErr) {
+      req.updateArticleError = {
+        errorType: 'getArticleError',
+        error: getArticleErr,
+      };
+      next();
     } else {
-      res.status(200).json({
-        message: `article with id ${req.params.id} has been successfully updated`,
+      req.originContent = content;
+      article.updateArticle(req.params.id, {
+        title: req.body.title,
+        autor: req.session.userId,
+        topic: req.body.topic,
+        updateDate: new Date(),
+        preViewContent: req.body.preViewContent,
+      }, (updateArticleErr, updatedContent) => {
+        if (updateArticleErr) {
+          req.updateArticleError = {
+            errorType: 'articleUpdareError',
+            articleId: req.params.id,
+            error: updateArticleErr,
+          };
+          next();
+        } else {
+          article.setImageToArticle(req.params.id, req.file.id, (updateImageErr) => {
+            if (!updateImageErr) {
+              if (updatedContent.fullContent === null) {
+                article.setContentToArticle(req.params.id, req.body.content, (setContentErr) => {
+                  if (setContentErr) {
+                    req.updateArticleError = {
+                      errorType: 'contentUploadError',
+                      articleId: req.params.id,
+                      error: setContentErr,
+                    };
+                    next();
+                  } else {
+                    res.status(201).json({ message: `Updated article with id ${req.params.id}` });
+                  }
+                });
+              } else {
+                article.updateArticleContent(req.params.id, req.body.content, (updateContentErr) => {
+                  if (updateContentErr) {
+                    req.updateArticleError = {
+                      errorType: 'contentUpdateError',
+                      articleId: req.params.id,
+                      error: updateContentErr,
+                    };
+                    next();
+                  } else {
+                    res.status(201).json({ message: `Updated article with id ${req.params.id}` });
+                  }
+                });
+              }
+            } else {
+              req.updateArticleError = {
+                errorType: 'imageUpdateError',
+                articleId: req.params.id,
+                error: updateImageErr,
+              };
+            }
+          });
+        }
       });
     }
   });
@@ -89,7 +139,7 @@ exports.setImageToArticle = (req, res) => {
 exports.setContentToArticle = (req, res) => {
   article.setContentToArticle(req.params.id, req.body.content, (err) => {
     if (err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: err });
     } else {
       res.status(201).json({ message: `Content added to the article with id ${req.params.id}` });
     }

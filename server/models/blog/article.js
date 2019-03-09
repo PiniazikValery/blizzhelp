@@ -44,7 +44,7 @@ class Article {
             if (updateErr) {
               callback(updateErr);
             } else {
-              callback();
+              callback(null, content);
             }
           });
         }

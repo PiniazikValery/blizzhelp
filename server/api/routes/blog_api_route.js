@@ -32,7 +32,11 @@ router.put(
   authMiddleware.apiRequiresToBeAdmin,
   articleMiddleware.requiresExistingArticle,
   articleMiddleware.requiresToBeCreatorOrSuperAdmin,
+  articleMiddleware.deleteExistingArticleImage,
+  articleImageStorage.getUpload().single('file'),
+  articleMiddleware.handleFileUploadError,
   blogController.updateArticle,
+  articleMiddleware.handleArticleUpdateErrors,
 );
 router.put(
   '/article_image/:id',
