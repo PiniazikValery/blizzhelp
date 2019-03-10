@@ -39,7 +39,7 @@ const ArticleSchema = new mongoose.Schema({
   },
   fullContent: {
     type: mongoose.Schema.Types.ObjectId,
-    default: null,
+    ref: 'ArticleContent',
   },
 });
 
@@ -59,6 +59,12 @@ ArticleSchema.pre('save', function beforeSave(next) {
   });
 });
 
+ArticleSchema.pre('save', function beforeSave(next) {
+  articleContent.createArticleContent(this.fullContent, (err) => {
+    next(err);
+  });
+});
+
 ArticleSchema.pre('updateOne', function beforeUpdate(next) {
   validateTopic(this.getUpdate().topic, (err) => {
     next(err);
@@ -67,13 +73,13 @@ ArticleSchema.pre('updateOne', function beforeUpdate(next) {
 
 ArticleSchema.pre('remove', function beforeRemove(next) {
   articleImageStorage.deleteFileById(this.article_image, (err) => {
-    if (err) {
-      next(err);
-    } else {
-      articleContent.deleteArticleContent(this.fullContent, (deleteContentErr) => {
-        next(deleteContentErr);
-      });
-    }
+    next(err);
+  });
+});
+
+ArticleSchema.pre('remove', function beforeRemove(next) {
+  articleContent.deleteArticleContent(this.fullContent, (err) => {
+    next(err);
   });
 });
 

@@ -1,6 +1,9 @@
+const mongoose = require('mongoose');
 const Article = require('../../models/blog/article');
 const ArticleImageStorage = require('../../models/fileStorageFacilities/articleImageStorage');
+const articleContentSchema = require('../../schemes/blog/articleContent');
 
+const ArticleContent = mongoose.model('ArticleContent', articleContentSchema);
 const article = new Article();
 const articleImageStorage = new ArticleImageStorage();
 
@@ -11,17 +14,19 @@ exports.createArticle = (req, res, next) => {
     topic: req.body.topic,
     updateDate: new Date(),
     preViewContent: req.body.preViewContent,
+    fullContent: new ArticleContent({
+      content: req.body.content,
+    }),
+    article_image: req.file.id,
   }, (err, createArticle) => {
     if (err) {
-      articleImageStorage.deleteFileById(req.file.id, () => {
-        res.status(422).json({
-          message: 'Unable to create article',
-          error: err.message,
-        });
-      });
-    } else {
-      req.createArticle = createArticle;
+      req.createArticleError = err;
       next();
+    } else {
+      res.status(201).json({
+        message: 'Artile has been successfully created',
+        articleId: createArticle.id,
+      });
     }
   });
 };
@@ -125,13 +130,6 @@ exports.setContentToArticle = (req, res, next) => {
     } else {
       next();
     }
-  });
-};
-
-exports.articleSuccessfullyCreated = (req, res) => {
-  res.status(200).json({
-    message: 'Artile has been successfully created',
-    articleId: req.createArticle.id,
   });
 };
 

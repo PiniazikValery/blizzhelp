@@ -6,11 +6,7 @@ class ArticleContent {
     this.articleContent = mongoose.model('ArticleContent', ArticleContentSchema);
   }
 
-  createArticleContent(_articleId, _content, callback) {
-    const articleContentData = {
-      content: _content,
-      articleId: _articleId,
-    };
+  createArticleContent(articleContentData, callback) {
     this.articleContent.create(articleContentData, (err, resultContent) => {
       callback(err, resultContent);
     });

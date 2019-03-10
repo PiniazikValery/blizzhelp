@@ -62,7 +62,7 @@ exports.handleFileUploadError = (req, res, next) => {
   if (req.fileUploadError === undefined) {
     if (req.file === undefined) {
       res.status(422).json({
-        error: 'No file to upload found',
+        error: 'No image to upload found',
       });
     } else {
       next();
@@ -77,8 +77,24 @@ exports.handleFileUploadError = (req, res, next) => {
       default:
         res.status(500).json({
           error: req.fileUploadError.error.message,
-          message: 'Some error occure while uploading file',
+          message: 'Some error occure while uploading image',
         });
     }
   }
+};
+
+exports.handleCreateArticleErrors = (req, res) => {
+  articleImageStorage.deleteFileById(req.file.id, (deleteFileError) => {
+    if (deleteFileError) {
+      res.status(500).json({
+        message: 'Unable to create article and delete uploaded image',
+        error: deleteFileError.message,
+      });
+    } else {
+      res.status(422).json({
+        message: 'Unable to create article',
+        error: req.createArticleError.message,
+      });
+    }
+  });
 };

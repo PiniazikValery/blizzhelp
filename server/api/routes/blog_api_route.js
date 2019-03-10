@@ -18,9 +18,7 @@ router.post(
   articleImageStorage.getUpload().single('file'),
   articleMiddleware.handleFileUploadError,
   blogController.createArticle,
-  blogController.setImageToArticle,
-  blogController.setContentToArticle,
-  blogController.articleSuccessfullyCreated,
+  articleMiddleware.handleCreateArticleErrors,
 );
 router.delete(
   '/article/:id',
