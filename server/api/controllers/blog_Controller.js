@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Article = require('../../models/blog/article');
 const ArticleImageStorage = require('../../models/fileStorageFacilities/articleImageStorage');
 const articleContentSchema = require('../../schemes/blog/articleContent');
+const config = require('../../config');
 
 const ArticleContent = mongoose.model('ArticleContent', articleContentSchema);
 const article = new Article();
@@ -113,4 +114,8 @@ exports.getArticleContent = (req, res) => {
       res.status(200).json({ content: result });
     }
   });
+};
+
+exports.getAvaliableTopics = (req, res) => {
+  res.status(200).json(config.get('avaliableTopics'));
 };

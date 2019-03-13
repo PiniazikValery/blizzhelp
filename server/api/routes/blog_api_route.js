@@ -59,4 +59,9 @@ router.get(
   blogController.getArticleContent,
 );
 
+router.get(
+  '/avaliable_topics',
+  blogController.getAvaliableTopics,
+);
+
 module.exports = router;

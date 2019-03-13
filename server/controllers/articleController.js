@@ -6,3 +6,9 @@ exports.get_articles = (req, res) => {
     topic: req.params.topic,
   });
 };
+
+exports.get_create_article = (req, res) => {
+  res.render('article/manageArticle/createArticle', {
+    title: 'Create article',
+  });
+};

@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 const ArticleImageStorage = require('../../models/fileStorageFacilities/articleImageStorage');
 const ArticleContent = require('../../models/blog/articleContent');
+const config = require('../../config');
 
 const articleImageStorage = new ArticleImageStorage();
 const articleContent = new ArticleContent();
-const topics = ['WoW', 'Overwatch', 'Hearthstone'];
 
 const ArticleSchema = new mongoose.Schema({
   title: {
@@ -46,7 +46,7 @@ const ArticleSchema = new mongoose.Schema({
 ArticleSchema.plugin(mongoosePaginate);
 
 const validateTopic = (topic, callback) => {
-  if (topics.includes(topic)) {
+  if (config.get('avaliableTopics').includes(topic)) {
     callback();
   } else {
     callback(new Error('Wrong topic name'));
