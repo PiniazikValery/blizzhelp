@@ -45,98 +45,23 @@ exports.deleteArticle = (req, res) => {
 
 exports.updateArticle = (req, res, next) => {
   article.updateArticle(req.params.id, {
-    title: req.body.title,
+    title: req.body.title === undefined ? 'No title' : req.body.title,
     autor: req.session.userId,
-    topic: req.body.topic,
+    topic: req.body.topic === undefined ? 'No topic' : req.body.topic,
     updateDate: new Date(),
-    preViewContent: req.body.preViewContent,
+    preViewContent: req.body.preViewContent === undefined ? 'No preview content' : req.body.preViewContent,
+    article_image: req.file.id,
+    content: req.body.content === undefined ? 'No content' : req.body.content,
   }, (err) => {
     if (err) {
-      res.status(422).json({
-        message: 'Unable to update article',
-        error: err.message,
-      });
-    } else {
+      req.updateArticleError = err;
       next();
-    }
-  });
-};
-
-exports.casheArticleBeforeUpdate = (req, res, next) => {
-  article.getArticleById(req.params.id, (err, savedArticle) => {
-    if (err) {
-      res.status(404).json({
-        message: 'Some error occure while fetching article',
-        error: err.message,
-      });
     } else {
-      req.savedArticle = savedArticle;
-      next();
-    }
-  });
-};
-
-exports.updateArticleImage = (req, res, next) => {
-  article.setImageToArticle(req.params.id, req.file.id, (err) => {
-    if (err) {
-      articleImageStorage.deleteFileById(req.file.id, () => {
-        res.status(422).json('Unable to update article image');
-      });
-    } else {
-      articleImageStorage.deleteFileById(req.savedArticle.article_image, () => {
-        next();
+      res.status(200).json({
+        message: 'Artile has been successfully updated',
+        articleId: req.params.id,
       });
     }
-  });
-};
-
-exports.updateArticleContent = (req, res, next) => {
-  article.updateArticleContent(req.params.id, req.body.content, (err) => {
-    if (err) {
-      res.status(422).json({
-        message: 'Unable to update article content',
-        error: err.message,
-      });
-    } else {
-      next();
-    }
-  });
-};
-
-exports.setImageToArticle = (req, res, next) => {
-  article.setImageToArticle(req.createArticle.id, req.file.id, (err) => {
-    if (err) {
-      article.deleteArticle(req.createArticle.id, () => {
-        res.status(422).json({
-          message: 'Unable to upload image',
-          error: err.message,
-        });
-      });
-    } else {
-      next();
-    }
-  });
-};
-
-exports.setContentToArticle = (req, res, next) => {
-  article.setContentToArticle(req.createArticle.id, req.body.content, (err) => {
-    if (err) {
-      article.deleteArticle(req.createArticle.id, () => {
-        res.status(500).json({
-          message: 'Unable to create content of the article',
-          error: err.message,
-        });
-      });
-    } else {
-      next();
-    }
-  });
-};
-
-exports.articleSuccessfullyUpdated = (req, res) => {
-  res.status(200).json({
-    message: 'Artile has been successfully updated',
-    articleId: req.params.id,
   });
 };
 

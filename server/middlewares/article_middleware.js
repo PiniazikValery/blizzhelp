@@ -98,3 +98,19 @@ exports.handleCreateArticleErrors = (req, res) => {
     }
   });
 };
+
+exports.handleUpdateArticleErrors = (req, res) => {
+  articleImageStorage.deleteFileById(req.file.id, (deleteFileError) => {
+    if (deleteFileError) {
+      res.status(500).json({
+        message: 'Unable to create article and delete uploaded image',
+        error: deleteFileError.message,
+      });
+    } else {
+      res.status(422).json({
+        message: 'Unable to create article',
+        error: req.updateArticleError.message,
+      });
+    }
+  });
+};

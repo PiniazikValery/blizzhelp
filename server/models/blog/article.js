@@ -35,23 +35,38 @@ class Article {
   }
 
   updateArticle(id, articleData, callback) {
-    this.article.findOne({ _id: id }, (err, content) => {
-      if (content) {
-        if (err) {
-          callback(err);
+    this.article.findOne({
+      _id: id,
+    })
+      .populate('fullContent')
+      .exec((findErr, article) => {
+        if (findErr) {
+          callback(findErr);
         } else {
-          content.updateOne(articleData, (updateErr) => {
+          article.updateOne({
+            $set: {
+              title: articleData.title,
+              autor: articleData.autor,
+              topic: articleData.topic,
+              updateDate: articleData.updateDate,
+              preViewContent: articleData.preViewContent,
+              article_image: articleData.article_image,
+            },
+          }, (updateErr) => {
             if (updateErr) {
               callback(updateErr);
             } else {
-              callback();
+              article.fullContent.updateOne({
+                $set: {
+                  content: articleData.content,
+                },
+              }, (updateContentErr) => {
+                callback(updateContentErr);
+              });
             }
           });
         }
-      } else {
-        callback(new Error('Article not found'));
-      }
-    });
+      });
   }
 
   getArticleById(id, callback) {
@@ -61,62 +76,6 @@ class Article {
       } else {
         callback(new Error('Article not found'), content);
       }
-    });
-  }
-
-  setImageToArticle(articleId, imageId, callback) {
-    this.article.findByIdAndUpdate(articleId, { article_image: imageId }, (errUpdate) => {
-      callback(errUpdate);
-    });
-  }
-
-  setContentToArticle(articleId, content, callback) {
-    this.articleContent.createArticleContent(articleId, content, (createErr, createdContent) => {
-      if (createErr) {
-        callback(createErr);
-      } else {
-        this.getArticleById(articleId, (foundErr, foundContent) => {
-          if (foundErr) {
-            callback(foundErr);
-          } else {
-            foundContent.updateOne({ $set: { fullContent: createdContent.id } }, (updateErr) => {
-              if (updateErr) {
-                callback(updateErr);
-              } else {
-                callback();
-              }
-            });
-          }
-        });
-      }
-    });
-  }
-
-  deleteArticleContent(articleId, callback) {
-    this.articleContent.deleteArticleContentByArticleId(articleId, (errDelete) => {
-      if (errDelete) {
-        callback(errDelete);
-      } else {
-        this.getArticleById(articleId, (foundErr, foundContent) => {
-          if (foundErr) {
-            callback(foundErr);
-          } else {
-            foundContent.updateOne({ $set: { fullContent: null } }, (updateErr) => {
-              if (updateErr) {
-                callback(updateErr);
-              } else {
-                callback();
-              }
-            });
-          }
-        });
-      }
-    });
-  }
-
-  updateArticleContent(articleId, content, callback) {
-    this.articleContent.updateArticleContentByArticleId(articleId, content, (err) => {
-      callback(err);
     });
   }
 

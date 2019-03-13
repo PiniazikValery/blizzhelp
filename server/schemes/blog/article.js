@@ -46,7 +46,7 @@ const ArticleSchema = new mongoose.Schema({
 ArticleSchema.plugin(mongoosePaginate);
 
 const validateTopic = (topic, callback) => {
-  if (topics.includes(topic) && topic !== undefined) {
+  if (topics.includes(topic)) {
     callback();
   } else {
     callback(new Error('Wrong topic name'));
@@ -66,9 +66,13 @@ ArticleSchema.pre('save', function beforeSave(next) {
 });
 
 ArticleSchema.pre('updateOne', function beforeUpdate(next) {
-  validateTopic(this.getUpdate().topic, (err) => {
-    next(err);
-  });
+  if (this.getUpdate().$set.topic !== undefined) {
+    validateTopic(this.getUpdate().$set.topic, (err) => {
+      next(err);
+    });
+  } else {
+    next();
+  }
 });
 
 ArticleSchema.pre('remove', function beforeRemove(next) {

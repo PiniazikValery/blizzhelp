@@ -32,13 +32,11 @@ router.put(
   authMiddleware.apiRequiresToBeAdmin,
   articleMiddleware.requiresExistingArticle,
   articleMiddleware.requiresToBeCreatorOrSuperAdmin,
-  blogController.casheArticleBeforeUpdate,
   articleImageStorage.getUpload().single('file'),
   articleMiddleware.handleFileUploadError,
-  blogController.updateArticleImage,
+  articleMiddleware.deleteExistingArticleImage,
   blogController.updateArticle,
-  blogController.updateArticleContent,
-  blogController.articleSuccessfullyUpdated,
+  articleMiddleware.handleUpdateArticleErrors,
 );
 
 router.get(
