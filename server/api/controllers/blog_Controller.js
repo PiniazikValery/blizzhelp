@@ -1,22 +1,31 @@
+const mongoose = require('mongoose');
 const Article = require('../../models/blog/article');
 const ArticleImageStorage = require('../../models/fileStorageFacilities/articleImageStorage');
+const articleContentSchema = require('../../schemes/blog/articleContent');
 
+const ArticleContent = mongoose.model('ArticleContent', articleContentSchema);
 const article = new Article();
 const articleImageStorage = new ArticleImageStorage();
 
-exports.createArticle = (req, res) => {
+exports.createArticle = (req, res, next) => {
   article.createArticle({
     title: req.body.title,
     autor: req.session.userId,
     topic: req.body.topic,
     updateDate: new Date(),
     preViewContent: req.body.preViewContent,
-  }, (err) => {
+    fullContent: new ArticleContent({
+      content: req.body.content,
+    }),
+    article_image: req.file.id,
+  }, (err, createArticle) => {
     if (err) {
-      res.status(500).json({ error: err.message });
+      req.createArticleError = err;
+      next();
     } else {
       res.status(201).json({
-        message: `article ${req.body.title} successfully created`,
+        message: 'Artile has been successfully created',
+        articleId: createArticle.id,
       });
     }
   });
@@ -34,60 +43,24 @@ exports.deleteArticle = (req, res) => {
   });
 };
 
-exports.updateArticle = (req, res) => {
+exports.updateArticle = (req, res, next) => {
   article.updateArticle(req.params.id, {
-    title: req.body.title,
+    title: req.body.title === undefined ? 'No title' : req.body.title,
     autor: req.session.userId,
-    topic: req.body.topic,
+    topic: req.body.topic === undefined ? 'No topic' : req.body.topic,
     updateDate: new Date(),
-    preViewContent: req.body.preViewContent,
+    preViewContent: req.body.preViewContent === undefined ? 'No preview content' : req.body.preViewContent,
+    article_image: req.file.id,
+    content: req.body.content === undefined ? 'No content' : req.body.content,
   }, (err) => {
     if (err) {
-      res.status(500).json({ error: err.message });
+      req.updateArticleError = err;
+      next();
     } else {
       res.status(200).json({
-        message: `article with id ${req.params.id} has been successfully updated`,
+        message: 'Artile has been successfully updated',
+        articleId: req.params.id,
       });
-    }
-  });
-};
-
-exports.setImageToArticle = (req, res) => {
-  article.setImageToArticle(req.params.id, req.file.id, (err) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-    } else {
-      res.status(201).json({ message: `Image added to the article with id ${req.params.id}` });
-    }
-  });
-};
-
-exports.setContentToArticle = (req, res) => {
-  article.setContentToArticle(req.params.id, req.body.content, (err) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-    } else {
-      res.status(201).json({ message: `Content added to the article with id ${req.params.id}` });
-    }
-  });
-};
-
-exports.deleteArticleContent = (req, res) => {
-  article.deleteArticleContent(req.params.id, (err) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-    } else {
-      res.status(201).json({ message: `Content in article with id ${req.params.id} has been deleted` });
-    }
-  });
-};
-
-exports.updateArticleContent = (req, res) => {
-  article.updateArticleContent(req.params.id, req.body.content, (err) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-    } else {
-      res.status(201).json({ message: `Content in article with id ${req.params.id} has been updated` });
     }
   });
 };

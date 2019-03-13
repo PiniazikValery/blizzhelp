@@ -39,14 +39,14 @@ const ArticleSchema = new mongoose.Schema({
   },
   fullContent: {
     type: mongoose.Schema.Types.ObjectId,
-    default: null,
+    ref: 'ArticleContent',
   },
 });
 
 ArticleSchema.plugin(mongoosePaginate);
 
 const validateTopic = (topic, callback) => {
-  if (topics.includes(topic) || topic === undefined) {
+  if (topics.includes(topic)) {
     callback();
   } else {
     callback(new Error('Wrong topic name'));
@@ -59,21 +59,31 @@ ArticleSchema.pre('save', function beforeSave(next) {
   });
 });
 
+ArticleSchema.pre('save', function beforeSave(next) {
+  articleContent.createArticleContent(this.fullContent, (err) => {
+    next(err);
+  });
+});
+
 ArticleSchema.pre('updateOne', function beforeUpdate(next) {
-  validateTopic(this.getUpdate().topic, (err) => {
+  if (this.getUpdate().$set.topic !== undefined) {
+    validateTopic(this.getUpdate().$set.topic, (err) => {
+      next(err);
+    });
+  } else {
+    next();
+  }
+});
+
+ArticleSchema.pre('remove', function beforeRemove(next) {
+  articleImageStorage.deleteFileById(this.article_image, (err) => {
     next(err);
   });
 });
 
 ArticleSchema.pre('remove', function beforeRemove(next) {
-  articleImageStorage.deleteFileById(this.article_image, (err) => {
-    if (err) {
-      next(err);
-    } else {
-      articleContent.deleteArticleContent(this.fullContent, (deleteContentErr) => {
-        next(deleteContentErr);
-      });
-    }
+  articleContent.deleteArticleContent(this.fullContent, (err) => {
+    next(err);
   });
 });
 

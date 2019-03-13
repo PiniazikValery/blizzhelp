@@ -15,7 +15,10 @@ const articleImageStorage = new ArticleImageStorage();
 router.post(
   '/article',
   authMiddleware.apiRequiresToBeAdmin,
+  articleImageStorage.getUpload().single('file'),
+  articleMiddleware.handleFileUploadError,
   blogController.createArticle,
+  articleMiddleware.handleCreateArticleErrors,
 );
 router.delete(
   '/article/:id',
@@ -29,41 +32,11 @@ router.put(
   authMiddleware.apiRequiresToBeAdmin,
   articleMiddleware.requiresExistingArticle,
   articleMiddleware.requiresToBeCreatorOrSuperAdmin,
-  blogController.updateArticle,
-);
-router.put(
-  '/article_image/:id',
-  authMiddleware.apiRequiresToBeAdmin,
-  articleMiddleware.requiresExistingArticle,
-  articleMiddleware.requiresToBeCreatorOrSuperAdmin,
-  articleMiddleware.deleteExistingArticleImage,
   articleImageStorage.getUpload().single('file'),
   articleMiddleware.handleFileUploadError,
-  blogController.setImageToArticle,
-);
-
-router.post(
-  '/article_content/:id',
-  authMiddleware.apiRequiresToBeAdmin,
-  articleMiddleware.requiresExistingArticle,
-  articleMiddleware.requiresToBeCreatorOrSuperAdmin,
-  blogController.setContentToArticle,
-);
-
-router.delete(
-  '/article_content/:id',
-  authMiddleware.apiRequiresToBeAdmin,
-  articleMiddleware.requiresExistingArticle,
-  articleMiddleware.requiresToBeCreatorOrSuperAdmin,
-  blogController.deleteArticleContent,
-);
-
-router.put(
-  '/article_content/:id',
-  authMiddleware.apiRequiresToBeAdmin,
-  articleMiddleware.requiresExistingArticle,
-  articleMiddleware.requiresToBeCreatorOrSuperAdmin,
-  blogController.updateArticleContent,
+  articleMiddleware.deleteExistingArticleImage,
+  blogController.updateArticle,
+  articleMiddleware.handleUpdateArticleErrors,
 );
 
 router.get(
