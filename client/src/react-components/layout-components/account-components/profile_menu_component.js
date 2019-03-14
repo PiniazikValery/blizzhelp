@@ -59,7 +59,7 @@ class ProfileMenu extends Component {
     return (
       <div id="ProfileMenu">
         <div className="clickable"><span className="Option">Кабинет пользователя</span></div>
-        {this.props.roleOfAuthenticatedUser.toLowerCase().includes('admin') ? <div className="clickable"><span className="Option">Создать статью</span></div> : undefined}
+        {this.props.roleOfAuthenticatedUser.toLowerCase().includes('admin') ? <div className="clickable" role="button" tabIndex="-1" onClick={() => { window.location.href = '/article/createArticle'; }} onKeyDown={() => { window.location.href = '/article/createArticle'; }}><span className="Option">Создать статью</span></div> : undefined}
         <div className="clickable" role="button" tabIndex="0" onClick={this.handleClickLogOut} onKeyDown={this.handleClickLogOut}><span className="Option LogOut">Выйти</span></div>
       </div>
     );

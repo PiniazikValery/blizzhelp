@@ -16,6 +16,13 @@
     "import/prefer-default-export": "off",
     "react/prop-types": "off",
     "no-restricted-globals": "off",
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "jsx-a11y/label-has-for": [ 2, {
+      "components": [ "Label" ],
+      "required": {
+          "some": [ "nesting", "id" ]
+      },
+      "allowChildren": false
+  }]
   }
 }

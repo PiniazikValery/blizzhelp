@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../../../../public/stylesheets/react_component_stylesheets/blog/create_article.css';
 
 class CreateArticle extends Component {
   constructor(props) {
@@ -49,11 +50,20 @@ class CreateArticle extends Component {
   render() {
     return (
       <div id="createArticleForm">
-        <input id="titleInput" value={this.state.title} onChange={this.handleTitleTyping} />
-        <p />
-        <select id="topics" value={this.state.topic} onChange={this.handleTopicChange}>
-          {this.createTopicOptions()}
-        </select>
+        <label htmlFor="titleInput">
+          {'Название статьи'}
+          <br />
+          <input id="titleInput" value={this.state.title} onChange={this.handleTitleTyping} />
+        </label>
+        <br />
+        <label htmlFor="topic">
+          {'Тема статьи'}
+          <div className="select">
+            <select id="topic" value={this.state.topic} onChange={this.handleTopicChange}>
+              {this.createTopicOptions()}
+            </select>
+          </div>
+        </label>
       </div>
     );
   }
