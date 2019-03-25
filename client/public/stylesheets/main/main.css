@@ -2,29 +2,29 @@
     color: white;
 }
 
-#main h1 {
+#main h1.editable {
     margin: auto;
     text-align: center;
     padding-bottom: 30px;
     padding-top: 20;
 }
 
-#main h2 {
+#main h2.editable {
     padding-left: 20px;
     margin-bottom: 20px;
 }
 
-#main h3 {
+#main h3.editable {
     padding-left: 20px;
     margin-bottom: 15px;
 }
 
-#main h4 {
+#main h4.editable {
     padding-left: 20px;
     margin-bottom: 10px;
 }
 
-#main p {
+#main p.editable {
     font-size: 20;
     padding-left: 20px;
     padding-right: 20px;
@@ -33,7 +33,7 @@
     color: #cccccc;
 }
 
-#main ul {
+#main ul.editable {
     font-size: 20;
     color: #cccccc;
     list-style-type: disc;
@@ -43,7 +43,7 @@
     margin-right: 10px;
 }
 
-#main ol{
+#main ol.editable{
     font-size: 20;
     color: #cccccc;    
     margin-top: 10px;

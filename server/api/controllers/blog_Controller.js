@@ -119,3 +119,19 @@ exports.getArticleContent = (req, res) => {
 exports.getAvaliableTopics = (req, res) => {
   res.status(200).json(config.get('avaliableTopics'));
 };
+
+exports.uploadBlogImg = (req, res) => {
+  if (req.file) {
+    res.status(200).json({
+      uploaded: true,
+      url: req.file.url,
+    });
+  } else {
+    res.status(500).json({
+      uploaded: false,
+      error: {
+        message: 'could not upload this image',
+      },
+    });
+  }
+};

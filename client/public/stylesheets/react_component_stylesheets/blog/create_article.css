@@ -1,10 +1,14 @@
 #createArticleForm{
-    margin: 20px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 0px;
 }
 
 #titleInput{
     margin-top: 10px;
     margin-bottom: 10px;
+    width: 100%;
     background-color: white;
 }
 
@@ -56,10 +60,53 @@ select {
   }
   
   .select:hover::after {
-    color: #f39c12;
+    color: #72d5ff;
   }
   .select::after {
     -webkit-transition: .25s all ease;
     -o-transition: .25s all ease;
     transition: .25s all ease;
+  }
+
+  #preViewContent {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 200px;
+    resize: none;
+  }
+
+  .content-wrapper{
+    color: black;
+    margin-top: 10px;
+  }
+
+  .content-editor {
+    background-color: white;
+    color: black;
+    height: 80% !important;
+    border: 1px solid #F1F1F1 !important;
+    padding: 5px !important;
+    border-radius: 2px !important;
+  }
+
+  #createArticleForm #createArticleButton{
+    float: right;
+    margin-top:10px;  
+    margin-bottom:10px;  
+    background-color: #3480af;
+    color: #ffffff;
+    width: 268px;
+    height:25px;
+    border-radius: 5px; 
+    border: none;
+  }
+
+  #progressBar {
+    width: 700px;
+    margin: inherit;
+  }
+
+  .hiddenElement {
+    visibility: hidden;
   }

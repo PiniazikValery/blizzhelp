@@ -7,6 +7,7 @@ const config = require('../../config');
 
 class ArticleImageStorage {
   constructor() {
+    this.maxFileSize = 1024 * 1024 * 2;
     this.gfs = null;
     mongoose.connection.once('open', () => {
       this.gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
@@ -38,6 +39,7 @@ class ArticleImageStorage {
         }
         return cb(null, true);
       },
+      limits: { fileSize: this.maxFileSize },
     });
   }
 
