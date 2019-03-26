@@ -102,6 +102,14 @@ select {
     border: none;
   }
 
+  #createArticleForm #createArticleButton:disabled,
+  #createArticleForm #createArticleButton[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+  }
+
   #progressBar {
     width: 700px;
     margin: inherit;

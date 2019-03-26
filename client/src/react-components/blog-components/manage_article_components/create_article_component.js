@@ -36,6 +36,7 @@ class CreateArticle extends Component {
     this.handleImgUpload = this.handleImgUpload.bind(this);
     this.verifyFields = this.verifyFields.bind(this);
     this.handleArticleCreate = this.handleArticleCreate.bind(this);
+    this.statusOfUpload = this.statusOfUpload.bind(this);
     this.uploadConfig = {
       onUploadProgress: (progressEvent) => {
         const percentCompleted = (Math.round((progressEvent.loaded * 100) / progressEvent.total)) * 0.8;
@@ -95,7 +96,9 @@ class CreateArticle extends Component {
         articleImagePreviewUrl: reader.result,
       });
     };
-    reader.readAsDataURL(file);
+    if (file !== undefined) {
+      reader.readAsDataURL(file);
+    }
   }
 
   verifyFields(callback) {
@@ -148,6 +151,14 @@ class CreateArticle extends Component {
     });
   }
 
+  statusOfUpload() {
+    let resultStatus = <div className="file-dummy default"><div className="default">Выберите картинку для статьи.</div></div>;
+    if (this.state.articleImageFile !== null) {
+      resultStatus = <div className="file-dummy success"><div className="success">Картинка для статьи выбрана.</div></div>;
+    }
+    return resultStatus;
+  }
+
   render() {
     return (
       <div id="createArticleForm">
@@ -169,10 +180,7 @@ class CreateArticle extends Component {
           {'Картинка статьи'}
           <div className="form-group file-area">
             <input onChange={this.handleImgUpload} type="file" name="images" id="images" required="required" multiple="multiple" />
-            <div className="file-dummy">
-              <div className="success">Great, your files are selected. Keep on.</div>
-              <div className="default">Please select some files</div>
-            </div>
+            {this.statusOfUpload()}
           </div>
         </label>
         <label htmlFor="preViewContent">
@@ -195,8 +203,8 @@ class CreateArticle extends Component {
             });
           }}
         />
-        <button id="createArticleButton" className="clickable" type="button" onClick={this.handleArticleCreate}>Создать статью</button>
-        <Line className={this.state.uploadProgress === null ? 'hiddenElement' : ''} id="progressBar" percent={this.state.uploadProgress} strokeWidth="1" strokeColor="#0077ff" />
+        <button disabled={this.state.uploadProgress !== null} id="createArticleButton" className="clickable" type="button" onClick={this.handleArticleCreate}>Создать статью</button>
+        <Line className={this.state.uploadProgress === null ? 'hiddenElement' : ''} id="progressBar" percent={this.state.uploadProgress === null ? 0 : this.state.uploadProgress} strokeWidth="1" strokeColor="#0077ff" />
       </div>
     );
   }

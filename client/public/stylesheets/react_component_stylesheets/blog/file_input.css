@@ -22,24 +22,21 @@
     border: 2px dashed rgba(255, 255, 255, 0.2);
     text-align: center;
   }
-  .file-area .file-dummy .success {
+  .file-area .file-dummy.success .success {
     display: none;
   }
   .file-area:hover .file-dummy {
     background: rgba(255, 255, 255, 0.1);
   }
-  .file-area input[type=file]:focus + .file-dummy {
+  .file-area input[type=file] + .file-dummy.default {
     outline: 2px solid rgba(255, 255, 255, 0.5);
     outline: -webkit-focus-ring-color auto 5px;
   }
-  .file-area input[type=file]:valid + .file-dummy {
+  .file-area input[type=file] + .file-dummy.success {
     border-color: rgba(0, 255, 0, 0.4);
     background-color: rgba(0, 255, 0, 0.3);
   }
-  .file-area input[type=file]:valid + .file-dummy .success {
+  .file-area input[type=file] + .file-dummy .success {
     display: inline-block;
-  }
-  .file-area input[type=file]:valid + .file-dummy .default {
-    display: none;
   }
   
