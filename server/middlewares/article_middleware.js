@@ -58,6 +58,16 @@ exports.deleteExistingArticleImage = (req, res, next) => {
   });
 };
 
+exports.handleMaxFileSizeError = (err, req, res, next) => {
+  if (err.code === 'LIMIT_FILE_SIZE') {
+    res.status(422).json({
+      error: 'Max file size',
+    });
+  } else {
+    next();
+  }
+};
+
 exports.handleFileUploadError = (req, res, next) => {
   if (req.fileUploadError === undefined) {
     if (req.file === undefined) {

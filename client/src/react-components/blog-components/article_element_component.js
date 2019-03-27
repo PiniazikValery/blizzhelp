@@ -5,14 +5,28 @@ class ArticleElement extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hasImage: this.props.articleImage !== null,
+      hasImage: this.props.articleImage !== null && this.props.articleImage !== undefined,
     };
+  }
+
+  getImageOfArticle() {
+    let result = null;
+    if (this.props.articleImageFile === null || this.props.articleImageFile === undefined) {
+      if (this.state.hasImage) {
+        result = <img alt="HTML5 Icon" src={`/blog_api/article_image/${this.props.articleId}`} className="article_image" />;
+      } else {
+        result = <img alt="HTML5 Icon" src="/images/icons/blog/image_not_found.png" className="article_image" />;
+      }
+    } else {
+      result = <img alt="HTML5 Icon" src={this.props.articleImageFile} className="article_image" />;
+    }
+    return result;
   }
 
   render() {
     return (
       <div className="articleElement">
-        {this.state.hasImage ? <img alt="HTML5 Icon" src={`/blog_api/article_image/${this.props.articleId}`} className="article_image" /> : <img alt="HTML5 Icon" src="/images/icons/blog/image_not_found.png" className="article_image" />}
+        { this.getImageOfArticle() }
         <div className="articleInfo">
           <span className="title">{this.props.title}</span>
           <span className="preViewContent">{this.props.preViewContent}</span>

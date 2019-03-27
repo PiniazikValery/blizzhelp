@@ -4,10 +4,10 @@ import webpackConfig from './config.babel';
 
 export default (app) => {
   const webpackCompiler = webpack(webpackConfig);
-  // use dev middleware
   app.use(webpackDevMiddleware(webpackCompiler, {
-    // defines the level of messages to log
     logLevel: 'warn',
+    noInfo: true,
     publicPath: webpackConfig.output.publicPath,
+    stats: 'errors-only',
   }));
 };

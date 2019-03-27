@@ -36,7 +36,7 @@ class ListOfArticles extends Component {
   }
 
   getPaginate() {
-    switch (this.state.componentLoaded) {
+    switch (this.state.componentLoaded && this.state.countOfPages > 1) {
       case true:
         return (
           <div id="react-paginate">
