@@ -14,4 +14,9 @@ router.get(
   articleController.get_create_article,
 );
 
+router.get(
+  '/showArticle/:id',
+  articleController.get_show_article,
+);
+
 module.exports = router;
