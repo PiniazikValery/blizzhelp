@@ -97,7 +97,11 @@ class Article {
     })
       .populate('fullContent')
       .exec((findErr, article) => {
-        callback(findErr, article.fullContent.content);
+        if (article !== undefined) {
+          callback(findErr, article.fullContent.content);
+        } else {
+          callback(findErr);
+        }
       });
   }
 }

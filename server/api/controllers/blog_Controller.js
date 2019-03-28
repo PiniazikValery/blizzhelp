@@ -2,10 +2,12 @@ const mongoose = require('mongoose');
 const Article = require('../../models/blog/article');
 const ArticleImageStorage = require('../../models/fileStorageFacilities/articleImageStorage');
 const articleContentSchema = require('../../schemes/blog/articleContent');
+const OembedParser = require('../../htmlParsers/oembedParser');
 const config = require('../../config');
 
 const ArticleContent = mongoose.model('ArticleContent', articleContentSchema);
 const article = new Article();
+const oembedParser = new OembedParser();
 const articleImageStorage = new ArticleImageStorage();
 
 exports.createArticle = (req, res, next) => {
@@ -111,7 +113,7 @@ exports.getArticleContent = (req, res) => {
     if (err) {
       res.status(500).json({ error: err.message });
     } else {
-      res.status(200).json({ content: result });
+      res.status(200).json({ content: oembedParser.parseOembeds(result) });
     }
   });
 };

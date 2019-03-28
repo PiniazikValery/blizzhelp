@@ -40,6 +40,7 @@
     "multer-gridfs-storage": "^3.2.3",
     "multer-storage-cloudinary": "^2.2.1",
     "nconf": "^0.10.0",
+    "node-html-parser": "^1.1.13",
     "nodemailer": "^5.1.1",
     "npm": "^6.9.0",
     "pug": "^2.0.3",
@@ -62,7 +63,8 @@
     "webpack": "^4.17.1",
     "webpack-cli": "^3.2.3",
     "webpack-dev-middleware": "^3.2.0",
-    "winston": "^3.0.0"
+    "winston": "^3.0.0",
+    "youtube-url": "^0.5.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

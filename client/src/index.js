@@ -17,7 +17,7 @@ const apps = {
   'showArticleComponent': () => import('./react-components/blog-components/manage_article_components/show_article_component'),
 };
 
-const renderAppInElement = (el) => {
+const renderAppInElement = async (el) => {
   el.classList.remove('loading');
   if (apps[el.id]) {
     apps[el.id]().then((App) => {
