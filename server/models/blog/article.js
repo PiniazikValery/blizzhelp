@@ -92,13 +92,13 @@ class Article {
   }
 
   getArticleContent(articleId, callback) {
-    this.articleContent.getArticleContentByArticleId(articleId, (err, result) => {
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(err, result.content);
-      }
-    });
+    this.article.findOne({
+      _id: articleId,
+    })
+      .populate('fullContent')
+      .exec((findErr, article) => {
+        callback(findErr, article.fullContent.content);
+      });
   }
 }
 

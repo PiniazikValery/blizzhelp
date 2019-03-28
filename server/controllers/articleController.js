@@ -14,5 +14,7 @@ exports.get_create_article = (req, res) => {
 };
 
 exports.get_show_article = (req, res) => {
-  res.render('article/manageArticle/showArticle');
+  res.render('article/manageArticle/showArticle', {
+    articleId: req.params.id,
+  });
 };

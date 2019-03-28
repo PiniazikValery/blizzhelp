@@ -9,6 +9,23 @@ class ShowArticle extends Component {
     };
   }
 
+  componentDidMount() {
+    fetch(`/blog_api/article_content/${this.props.articleid}`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then((result) => {
+        this.setState({
+          articleHTML: result.content,
+        });
+      });
+  }
+
   render() {
     return (
       <div id="articleContent">
