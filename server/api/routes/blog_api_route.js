@@ -71,4 +71,15 @@ router.get(
   blogController.getAvaliableTopics,
 );
 
+router.post(
+  '/comment',
+  authMiddleware.apiRequiresLogin,
+  blogController.uploadComment,
+);
+
+router.get(
+  '/comment/:articleName',
+  blogController.getComments,
+);
+
 module.exports = router;
