@@ -24,6 +24,7 @@
 }
 
 .articleElement .preViewContent {
+    word-wrap: break-word;
     color: #cccccc;
     display: -webkit-box;
     overflow: hidden;

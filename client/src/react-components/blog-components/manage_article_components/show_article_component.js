@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import renderHTML from 'react-render-html';
+import '../../../../public/stylesheets/react_component_stylesheets/blog/fullArticle.css';
 
 class ShowArticle extends Component {
   constructor(props) {

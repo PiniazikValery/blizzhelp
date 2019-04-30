@@ -10,11 +10,14 @@ block title_main
     h1
         case topic
             when "WoW"
-                |Статьи о World of Warcraft
+                h1(class="editable") 
+                    |Статьи о World of Warcraft
             when "Overwatch"
-                |Статьи об Overwatch
+                h1(class="editable") 
+                    |Статьи об Overwatch
             when "Any"
-                |Все статьи
+                 h1(class="editable") 
+                    |Все статьи
 
 block body
     div(id="listOfArticlesComponent" class="__react-root" data-pageNumber=pageNumber data-topic=topic)
