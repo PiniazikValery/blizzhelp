@@ -14,9 +14,10 @@ const apps = {
   'unauthorizedHandler': () => import('./react-components/error-handler-components/unauthorized_handler_component'),
   'listOfArticlesComponent': () => import('./react-components/blog-components/list_of_articles_component'),
   'createArticleComponent': () => import('./react-components/blog-components/manage_article_components/create_article_component'),
+  'showArticleComponent': () => import('./react-components/blog-components/manage_article_components/show_article_component'),
 };
 
-const renderAppInElement = (el) => {
+const renderAppInElement = async (el) => {
   el.classList.remove('loading');
   if (apps[el.id]) {
     apps[el.id]().then((App) => {

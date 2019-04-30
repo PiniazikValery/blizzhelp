@@ -23,5 +23,5 @@
 }
 
 #ProfileMenu .LogOut:hover {
-    border: 3px solid red;
+    color: red;
 }

@@ -25,7 +25,7 @@ class ArticleElement extends Component {
 
   render() {
     return (
-      <div className="articleElement">
+      <div className="articleElement" role="button" tabIndex="0" onClick={() => { window.location.href = `/article/showArticle/${this.props.articleId}`; }} onKeyDown={() => { window.location.href = `/article/showArticle/${this.props.articleId}`; }}>
         { this.getImageOfArticle() }
         <div className="articleInfo">
           <span className="title">{this.props.title}</span>

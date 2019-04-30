@@ -79,3 +79,7 @@
 .clickable {
     cursor: pointer;
 }
+
+[role='button'] {
+    outline: 0;
+}

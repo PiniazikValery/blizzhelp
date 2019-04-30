@@ -12,3 +12,9 @@ exports.get_create_article = (req, res) => {
     title: 'Create article',
   });
 };
+
+exports.get_show_article = (req, res) => {
+  res.render('article/manageArticle/showArticle', {
+    articleId: req.params.id,
+  });
+};
