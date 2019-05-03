@@ -22,6 +22,26 @@ class Comment {
     });
   }
 
+  deleteCommentById(commentId, callback) {
+    const methodError = new Error();
+    this.comment.find({ _id: commentId }, (foundErr, comments) => {
+      switch (true) {
+        case foundErr:
+          callback(foundErr);
+          break;
+        case !comments.length:
+          methodError.message = 'Can not find comment';
+          methodError.code = 404;
+          callback(methodError);
+          break;
+        default:
+          this.comment.findByIdAndDelete(commentId, (err) => {
+            callback(err);
+          });
+      }
+    });
+  }
+
   static compareComments(a, b) {
     if (a.postDate < b.postDate) {
       return -1;

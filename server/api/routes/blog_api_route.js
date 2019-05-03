@@ -82,4 +82,11 @@ router.get(
   blogController.getComments,
 );
 
+router.delete(
+  '/comment/:commentId',
+  authMiddleware.apiRequiresLogin,
+  authMiddleware.requiresToBeAdmin,
+  blogController.deleteComment,
+);
+
 module.exports = router;

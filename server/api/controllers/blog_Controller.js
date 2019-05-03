@@ -180,3 +180,30 @@ exports.getComments = (req, res) => {
     }
   });
 };
+
+exports.deleteComment = (req, res) => {
+  comment.deleteCommentById(req.params.commentId, (err) => {
+    if (err) {
+      switch (err.code) {
+        case 404:
+          res.status(err.code).json({
+            error: {
+              message: 'Can not find error',
+            },
+          });
+          break;
+        default:
+          res.status(500).json({
+            error: {
+              message: 'Some error occure while finding comments',
+            },
+          });
+      }
+    } else {
+      res.status(200).json({
+        message: 'Comment have been deleted',
+        commentId: req.params.commentId,
+      });
+    }
+  });
+};
