@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Article = require('../../models/blog/article');
+const Comment = require('../../models/blog/comment');
 const ArticleImageStorage = require('../../models/fileStorageFacilities/articleImageStorage');
 const articleContentSchema = require('../../schemes/blog/articleContent');
 const OembedParser = require('../../htmlParsers/oembedParser');
@@ -7,6 +8,7 @@ const config = require('../../config');
 
 const ArticleContent = mongoose.model('ArticleContent', articleContentSchema);
 const article = new Article();
+const comment = new Comment();
 const oembedParser = new OembedParser();
 const articleImageStorage = new ArticleImageStorage();
 
@@ -136,4 +138,72 @@ exports.uploadBlogImg = (req, res) => {
       },
     });
   }
+};
+
+exports.uploadComment = (req, res) => {
+  comment.createComment(
+    {
+      article: req.body.article,
+      content: req.body.content,
+      sender: req.session.userId,
+    },
+    (err, result) => {
+      if (err) {
+        res.status(500).json({
+          error: {
+            message: err.message,
+          },
+        });
+      } else {
+        res.status(201).json({
+          message: 'Comment successfuly posted',
+          comment: result,
+        });
+      }
+    },
+  );
+};
+
+exports.getComments = (req, res) => {
+  comment.getCommentsByArticle(req.params.articleName, (err, foundComments) => {
+    if (err) {
+      res.status(500).json({
+        error: {
+          message: 'Some error occure while finding comments',
+        },
+      });
+    } else {
+      res.status(200).json({
+        message: 'Comments have been found',
+        comments: foundComments,
+      });
+    }
+  });
+};
+
+exports.deleteComment = (req, res) => {
+  comment.deleteCommentById(req.params.commentId, (err) => {
+    if (err) {
+      switch (err.code) {
+        case 404:
+          res.status(err.code).json({
+            error: {
+              message: 'Can not find error',
+            },
+          });
+          break;
+        default:
+          res.status(500).json({
+            error: {
+              message: 'Some error occure while finding comments',
+            },
+          });
+      }
+    } else {
+      res.status(200).json({
+        message: 'Comment have been deleted',
+        commentId: req.params.commentId,
+      });
+    }
+  });
 };
