@@ -163,13 +163,13 @@ class CreateArticle extends Component {
     return (
       <div id="createArticleForm">
         <label htmlFor="titleInput">
-          {'Название статьи'}
+          Название статьи
           <br />
           <input id="titleInput" value={this.state.title} onChange={this.handleTitleTyping} />
         </label>
         <br />
         <label htmlFor="topic">
-          {'Тема статьи'}
+          Тема статьи
           <div className="select">
             <select id="topic" value={this.state.topic} onChange={this.handleTopicChange}>
               {this.createTopicOptions()}
@@ -177,19 +177,19 @@ class CreateArticle extends Component {
           </div>
         </label>
         <label htmlFor="articleImage">
-          {'Картинка статьи'}
+          Картинка статьи
           <div className="form-group file-area">
             <input onChange={this.handleImgUpload} type="file" name="images" id="images" required="required" multiple="multiple" />
             {this.statusOfUpload()}
           </div>
         </label>
         <label htmlFor="preViewContent">
-          {'Контент для предпросмотра'}
+          Контент для предпросмотра
           <br />
           <textarea id="preViewContent" value={this.state.preViewContent} onChange={this.handlePreViewContentChange} />
         </label>
         <ArticleElement articleImageFile={this.state.articleImagePreviewUrl} title={this.state.title} preViewContent={this.state.preViewContent} topic={this.state.topic} />
-        {'Контент статьи'}
+        Контент статьи
         <br />
         <CKEditor
           editor={ClassicEditor}
